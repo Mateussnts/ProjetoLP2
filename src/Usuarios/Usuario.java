@@ -2,7 +2,7 @@ package Usuarios;
 
 /**
  * representacao de criacao de um usuario especifico.
- * tendo como atributos nome, email, celular, status e id.
+ * tendo como atributos nome, email, celular, classe e id.
  * 
  */
 
@@ -10,7 +10,7 @@ public class Usuario {
 	private String nome;
 	private String email;
 	private String celular;
-	private String status;
+	private String classe;
 	private String id;
 	
 	/**
@@ -21,17 +21,45 @@ public class Usuario {
 	 * 		representacao em string do email do usuario.
 	 * @param celular
 	 * 		representacao em string do celular do usuario.
-	 * @param status
-	 * 		representacao em string da status do usuario.
+	 * @param classe
+	 * 		representacao em string da classe do usuario.
 	 * @param id
 	 * 		representacao em string da id do ususario.
 	 */
 	
-	public Usuario(String nome, String email, String celular, String status, String id) {
+	public Usuario(String id, String nome, String email, String celular, String classe) {
+		
+		if(nome == null || nome.equals("")) {
+			throw new IllegalArgumentException("Entrada invalida: nome nao pode ser vazio ou nulo.");
+		}
+		
+		if(email == null || email.equals("")) {
+			throw new IllegalArgumentException("Entrada invalida: email nao pode ser vazio ou nulo.");
+		}
+		
+		if(celular == null || celular.equals("")) {
+			throw new IllegalArgumentException("Entrada invalida: celular nao pode ser vazio ou nulo.");
+		}
+		
+		if(classe == null || classe.equals("")) {
+			throw new IllegalArgumentException("Entrada invalida: classe nao pode ser vazia ou nula.");
+		}
+		
+		if(id == null || id.equals("")) {
+			throw new IllegalArgumentException("Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
+		}
+		
+		if(!classe.equals("PESSOA_FISICA") && !classe.equals("IGREJA") && !classe.equals("ONG")
+			&& !classe.equals("ORGAO_PUBLICO_ESTADUAL") && !classe.equals("ORGAO_PUBLICO_FEDERAL")
+			&& !classe.equals("ASSOCIACAO") && !classe.equals("SOCIEDADE")) {
+			throw new IllegalArgumentException("Entrada invalida: opcao de classe invalida.");
+		}
+		
+		
 		this.nome = nome;
 		this.email = email;
 		this.celular = celular;
-		this.status = status;
+		this.classe = classe;
 		this.id = id;
 	}
 
@@ -50,8 +78,8 @@ public class Usuario {
 		return celular;
 	}
 	
-	public String getstatus() {
-		return status;
+	public String getclasse() {
+		return classe;
 	}
 	
 	public String getid() {
@@ -77,8 +105,8 @@ public class Usuario {
 	}
 
 
-	public void setstatus(String status) {
-		this.status = status;
+	public void setclasse(String classe) {
+		this.classe = classe;
 	}
 
 
@@ -93,7 +121,7 @@ public class Usuario {
 	
 	@Override
 	public String toString() {
-		return nome +  " / " + id + ", " + email + ", " + celular + ", " + status;
+		return nome +  " / " + id + ", " + email + ", " + celular + ", " + classe;
 	}
 
 	/**
@@ -105,7 +133,7 @@ public class Usuario {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((celular == null) ? 0 : celular.hashCode());
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result + ((classe == null) ? 0 : classe.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
@@ -126,10 +154,10 @@ public class Usuario {
 				return false;
 		} else if (!celular.equals(other.celular))
 			return false;
-		if (status == null) {
-			if (other.status != null)
+		if (classe == null) {
+			if (other.classe != null)
 				return false;
-		} else if (!status.equals(other.status))
+		} else if (!classe.equals(other.classe))
 			return false;
 		if (email == null) {
 			if (other.email != null)
