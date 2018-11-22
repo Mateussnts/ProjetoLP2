@@ -1,5 +1,7 @@
 package Controladores;
 
+import java.util.ArrayList;
+
 /**
  * representacao do controle de operacoes(CRUD)
  * dos usuarios.
@@ -10,6 +12,7 @@ import Usuarios.Usuario;
 
 public class ControllerUsuario {
 	private HashMap<String, Usuario> listaDoador = new HashMap<>();
+	private ArrayList<String> descritores = new ArrayList<String>();
 	
 	/**
 	 * Metodo de cadastro de usuarios doadores no sistema. 
@@ -51,6 +54,26 @@ public class ControllerUsuario {
 
 	public void removeUsuario(String id) {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	public void adicionaDescritor(String descricao) {
+		
+		if(descricao == null || descricao.equals("")) {
+			throw new IllegalArgumentException("Entrada invalida: descricao nao pode ser vazia ou nula.");
+		}
+		
+		if(descritores.contains(descricao)) {
+			throw new IllegalArgumentException("Descritor de Item ja existente: " + this.descritores + ".");
+		}
+		
+		descritores.add(descricao);
+		
+	}
+	
+	public String adicionaItemParaDoacao(String idDoador, String descricaoItem, int quantidade, String tag) {
+		
+		return "" ;
 		
 	}
 
