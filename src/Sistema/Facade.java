@@ -7,9 +7,9 @@ public class Facade {
 	private ControllerUsuario usuarioControl;
 
 	public static void main(String[] args) {
-		args = new String[] { "Sistema.Facade", "EasyAccept/use_case_1.txt"};
-		
+		args = new String[] {"Sistema.Facade", "EasyAccept/use_case_1.txt"};
 		EasyAccept.main(args);
+		
 	}
 	
 	public Facade() {
