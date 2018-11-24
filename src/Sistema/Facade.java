@@ -1,5 +1,7 @@
 package Sistema;
 
+import java.io.IOException;
+
 import Controladores.ControllerUsuario;
 import easyaccept.EasyAccept;
 
@@ -16,8 +18,12 @@ public class Facade {
 		this.usuarioControl = new ControllerUsuario();
 	}
 	
-	public void adicionaDoador(String id, String nome, String email, String celular, String classe) {
-		this.usuarioControl.adicionaDoador(id, nome, email, celular, classe);
+	public void lerReceptores(String caminho) throws IOException {
+		this.usuarioControl.lerReceptores(caminho);
+	}
+	
+	public String adicionaDoador(String id, String nome, String email, String celular, String classe) {
+		return this.usuarioControl.adicionaDoador(id, nome, email, celular, classe);
 	}
 
 	public String pesquisaUsuarioPorId(String id) {
@@ -28,12 +34,11 @@ public class Facade {
 		return this.usuarioControl.pesquisaUsuarioPorNome(nome);
 	}
 	
-	public void atualizaUsuario(String id, String parametro, String novoParametro) {
-		this.usuarioControl.atualizaUsuario(id, parametro, novoParametro);
+	public String atualizaUsuario(String id, String nome, String email, String celular) {
+		return this.usuarioControl.atualizaUsuario(id, nome, email, celular);
 	}
 	
 	public void removeUsuario(String id) {
 		this.usuarioControl.removeUsuario(id);
 	}
-
 }
