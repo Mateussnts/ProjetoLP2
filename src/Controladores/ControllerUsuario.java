@@ -1,10 +1,13 @@
 package Controladores;
 
+
+import java.util.ArrayList;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import Usuarios.Usuario;
+
 
 /**
  * representacao do controle de operacoes(CRUD)
@@ -12,6 +15,9 @@ import Usuarios.Usuario;
  */
 
 public class ControllerUsuario {
+
+	private HashMap<String, Usuario> listaDoador = new HashMap<>();
+	private ArrayList<String> descritores = new ArrayList<String>();
 	private ArrayList<Usuario> listaUsuario = new ArrayList<>();
 						
 	/**
@@ -47,6 +53,7 @@ public class ControllerUsuario {
        }
         leitor.close();
     }
+
 	
 
 	/**
@@ -177,6 +184,26 @@ public class ControllerUsuario {
 		}
 		
 		listaUsuario.remove(usuario);
+	}
+	
+	public void adicionaDescritor(String descricao) {
+		
+		if(descricao == null || descricao.equals("")) {
+			throw new IllegalArgumentException("Entrada invalida: descricao nao pode ser vazia ou nula.");
+		}
+		
+		if(descritores.contains(descricao)) {
+			throw new IllegalArgumentException("Descritor de Item ja existente: " + this.descritores + ".");
+		}
+		
+		descritores.add(descricao);
+		
+	}
+	
+	public String adicionaItemParaDoacao(String idDoador, String descricaoItem, int quantidade, String tag) {
+		
+		return "" ;
+		
 	}
 
 	/**
