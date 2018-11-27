@@ -16,7 +16,6 @@ import Usuarios.Usuario;
 
 public class ControllerUsuario {
 
-	private HashMap<String, Usuario> listaDoador = new HashMap<>();
 	private ArrayList<String> descritores = new ArrayList<String>();
 	private ArrayList<Usuario> listaUsuario = new ArrayList<>();
 						
