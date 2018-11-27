@@ -29,7 +29,7 @@ public class Usuario {
 	 * @param status 
 	 */
 	
-	public Usuario(String id, String nome, String email, String celular, String classe) {
+	public Usuario(String id, String nome, String email, String celular, String classe, String status) {
 		
 		if(nome == null || nome.equals("")) {
 			throw new IllegalArgumentException("Entrada invalida: nome nao pode ser vazio ou nulo.");
@@ -61,7 +61,7 @@ public class Usuario {
 		this.celular = celular;
 		this.classe = classe;
 		this.id = id;
-		this.status = null;
+		this.status = status;
 	}
 
 	/**

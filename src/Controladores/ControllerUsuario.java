@@ -38,7 +38,7 @@ public class ControllerUsuario {
             
             String[] dadosUsuario = newLine.split(",");
             
-            Usuario novoUsuario = new Usuario(dadosUsuario[0], dadosUsuario[1], dadosUsuario[2], dadosUsuario[3], dadosUsuario[4]);
+            Usuario novoUsuario = new Usuario(dadosUsuario[0], dadosUsuario[1], dadosUsuario[2], dadosUsuario[3], dadosUsuario[4], "receptor");
             
             if(buscarUsuarioId(novoUsuario.getid()) != null) {
             	atualizaUsuario(novoUsuario.getid(),
@@ -47,7 +47,6 @@ public class ControllerUsuario {
             					novoUsuario.getCelular());
             } else {
                 listaUsuario.add(novoUsuario);
-                buscarUsuarioId(dadosUsuario[0]).setStatus("receptor");
             }
        }
         leitor.close();
@@ -74,7 +73,7 @@ public class ControllerUsuario {
 			throw new IllegalArgumentException("Usuario ja existente: " + id + ".");
 		}
 		
-		Usuario novoDoador = new Usuario(id, nome, email, celular, classe);
+		Usuario novoDoador = new Usuario(id, nome, email, celular, classe, "doador");
 		novoDoador.setStatus("doador");
 		listaUsuario.add(novoDoador);
 		
