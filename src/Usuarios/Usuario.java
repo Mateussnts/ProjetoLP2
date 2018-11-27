@@ -14,6 +14,7 @@ public class Usuario {
 	private String id;
 	private String status;
 	
+	
 	/**
 	 * Metodo construtor do usuario.
 	 * @param nome

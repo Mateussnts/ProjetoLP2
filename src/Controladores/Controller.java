@@ -2,10 +2,13 @@ package Controladores;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import Item.Item;
 import Usuarios.Usuario;
 
 
@@ -14,10 +17,12 @@ import Usuarios.Usuario;
  * dos usuarios.
  */
 
-public class ControllerUsuario {
+public class Controller {
 
-	private ArrayList<String> descritores = new ArrayList<String>();
 	private ArrayList<Usuario> listaUsuario = new ArrayList<>();
+	private ArrayList<String> descritores = new ArrayList<String>();
+	private HashMap<String, Item> listaItens = new HashMap<String, Item>();
+	private int idItem = 0;
 						
 	/**
 	 * Metodo de leitura dos arquivos(CSV) para cadastro de usuarios e atualizacao das 
@@ -185,20 +190,6 @@ public class ControllerUsuario {
 		listaUsuario.remove(usuario);
 	}
 	
-	public void adicionaDescritor(String descricao) {
-		
-		if(descricao == null || descricao.equals("")) {
-			throw new IllegalArgumentException("Entrada invalida: descricao nao pode ser vazia ou nula.");
-		}
-		
-		if(descritores.contains(descricao)) {
-			throw new IllegalArgumentException("Descritor de Item ja existente: " + this.descritores + ".");
-		}
-		
-		descritores.add(descricao);
-		
-	}
-	
 	public String adicionaItemParaDoacao(String idDoador, String descricaoItem, int quantidade, String tag) {
 		
 		return "" ;
@@ -242,4 +233,42 @@ public class ControllerUsuario {
 		}
 		return usuario;
 	}
+	
+	public void adicionaDescritor(String descricao) {
+		
+		if(descricao == null || descricao.equals("")) {
+			throw new IllegalArgumentException("Entrada invalida: descricao nao pode ser vazia ou nula.");
+		}
+		
+		if(descritores.contains(descricao)) {
+			throw new IllegalArgumentException("Descritor de Item ja existente: " + this.descritores + ".");
+		}
+	}
+	
+	public String adicionaItemParaDoacao(String idDoador, String descricao, int quantidade, String tags) {
+		
+		if(descricao.equals("") || descricao == null) {
+			throw new IllegalArgumentException("Entrada invalida: descricao nao pode ser vazia ou nula.");
+		}
+		
+		if(quantidade <= 0) {
+			throw new IllegalArgumentException("Entrada invalida: quantidade deve ser maior que zero.");
+		}
+		
+		
+		//
+		
+		
+		listaItens.put(idDoador, new Item(idDoador, descricao,quantidade, tags));
+		return "";
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }
