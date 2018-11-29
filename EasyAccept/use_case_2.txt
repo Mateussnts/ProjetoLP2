@@ -18,7 +18,6 @@ expectError "Entrada invalida: descricao nao pode ser vazia ou nula." adicionaDe
 expectError "Descritor de Item ja existente: curso de programacao." adicionaDescritor descricao="curso de programacao"
 expectError "Descritor de Item ja existente: jaqueta de couro." adicionaDescritor descricao="Jaqueta de Couro"
 
-
 ## Adicionando itens ##
 
 idItem1=adicionaItemParaDoacao idDoador=${id9} descricaoItem="cadeira de rodas" quantidade=5 tags="roda grande,cadeira"
@@ -40,7 +39,7 @@ expectError "Entrada invalida: quantidade deve ser maior que zero." adicionaItem
 expectError "Entrada invalida: quantidade deve ser maior que zero." adicionaItemParaDoacao idDoador=${id1} descricaoItem="travesseiro" quantidade=-1  tags=""
 expectError "Entrada invalida: id do usuario nao pode ser vazio ou nulo." adicionaItemParaDoacao idDoador= descricaoItem="travesseiro" quantidade=2 tags=""
 expectError "Usuario nao encontrado: 12345678910." adicionaItemParaDoacao idDoador=12345678910 descricaoItem="travesseiro" quantidade=2 tags="outfit,hollister"
-
+	
 ## Exibindo itens ##
 
 expect ${idItem1}" - cadeira de rodas, tags: [roda grande, cadeira], quantidade: 2" exibeItem id=${idItem1} idDoador=${id9}
@@ -80,4 +79,4 @@ expectError "Entrada invalida: id do usuario nao pode ser vazio ou nulo." remove
 expectError "Entrada invalida: id do usuario nao pode ser vazio ou nulo." removeItemParaDoacao id=${idItem9} idDoador=""
 expectError "Usuario nao encontrado: "${id10}"." removeItemParaDoacao id=${idItem9} idDoador=${id10}
 expectError "Item nao encontrado: "${idItem9}"." removeItemParaDoacao id=${idItem9} idDoador=${id9}
-expectError "O Usuario não possui itens cadastrados." removeItemParaDoacao id=${idItem9} idDoador=${id11}
+expectError "O Usuario nao possui itens cadastrados." removeItemParaDoacao id=${idItem9} idDoador=${id11}

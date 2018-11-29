@@ -1,8 +1,13 @@
 package Usuarios;
 
+import java.util.ArrayList;
+
+import Controladores.ControllerItem;
+import Item.Item;
+
 /**
  * representacao de criacao de um usuario especifico.
- * tendo como atributos nome, email, celular, classe e id.
+ * tendo como atributos nome, email, celular, classe e id e um array que armazena os itens do usuario.
  * 
  */
 
@@ -13,6 +18,8 @@ public class Usuario {
 	private String classe;
 	private String id;
 	private String status;
+	
+	private ArrayList<Item> itens;
 	
 	/**
 	 * Metodo construtor do usuario.
@@ -62,8 +69,19 @@ public class Usuario {
 		this.classe = classe;
 		this.id = id;
 		this.status = status;
+		this.itens = new ArrayList<>();
 	}
 
+	/**
+	 * Metodo que retorna a representacao textual do usuario
+	 * tendo como parametros os atributos do usuario.
+	 */
+	
+	@Override
+	public String toString() {
+		return nome + "/" + id + ", " + email + ", " + celular + ", " + "status: " + status;
+	}
+	
 	/**
 	 * Metodos acessadores dos atributos do usuario.
 	 */
@@ -91,6 +109,10 @@ public class Usuario {
 		return status;
 	}
 	
+	public ArrayList<Item> getItens(){
+		return this.itens;
+	}
+	
 	/**
 	 * Metodos modificadores dos atributos do usuario.
 	 */
@@ -99,16 +121,13 @@ public class Usuario {
 		this.nome = nome;
 	}
 
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-
 	public void setCelular(String celular) {
 		this.celular = celular;
 	}
-
 
 	public void setclasse(String classe) {
 		this.classe = classe;
@@ -121,17 +140,145 @@ public class Usuario {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
+	
 	/**
-	 * Metodo que retorna a representacao textual do usuario
-	 * tendo como parametros os atributos do usuario.
+	 * Metodo responsavel pelo cadastro de itens associado a um usuario do sistema e gerador do numero de
+	 * identificacao do item.
+	 * @param descricaoItem
+	 * 		representacao da descricao do item que sera addicionado.
+	 * @param quantidade
+	 * 		representacao da quantidade de itens que sera adicionado.
+	 * @param tags
+	 * 		representacao daa tag do item que sera adicionado.
+	 * @return
+	 * 		retorna o numero de identificacao do item que foi gerado no seus respectivo cadastro.
 	 */
 	
-	@Override
-	public String toString() {
-		return nome + "/" + id + ", " + email + ", " + celular + ", " + "status: " + status;
+	public int adicionaItemParaDoacao(String descricaoItem, int quantidade, String tags) {
+		Item item = buscarItem(descricaoItem);
+		int idItem = ControllerItem.idItem;
+		if (item == null) {
+			item = new Item(this.id, descricaoItem, quantidade, tags,idItem);
+			itens.add(item);
+			ControllerItem.idItem ++;
+			return idItem;
+		} else {
+			itens.remove(item);
+			item = new Item(this.id, descricaoItem, quantidade, tags,item.getIdItem());
+			itens.add(item);
+			return idItem;
+		}
 	}
-
+	
+	/**
+	 * Metodo reponsavel pela exibicao do item que esta associado a um usuario doador.
+	 * buscar um usuario especifico e respectivamente seu item.
+	 * @param id
+	 * 		representacacod o numero de identificacao do item.
+	 * @return
+	 * 		retorna o item com sua devida representacao textal.
+	 */
+	
+	public String exibirItem(int id) {
+		String saida = "";
+		Item item = buscarItem(id);
+		if(item == null) {
+			throw new IllegalArgumentException("Item nao encontrado: " + id + ".");
+		}	
+		else {
+			saida = item.toString();
+		}
+		return saida;
+	}
+	
+	/**
+	 * Metodo de atualizacao de atributos do item que esta armazenado no sistema.
+	 * utiliza o metodo de procura de item pelo seu numero de identificacao
+	 * e recebe parametros que serao utilizado para atualizar os atributos do item.
+	 * @param id
+	 * 		representacao do numero de identificacao do item que sera buscado.
+	 * @param quantidade
+	 * 		representacao do atributo do item que sera modificado.
+	 * @param tags
+	 * 		representacao do atributo do item que sera modificado.
+	 * @return
+	 * 		retorna o item com seus atributos atualizados e o armazena novamente.
+	 */
+	
+	public String atualizaItemParaDoacao(int id, int quantidade, String tags) {
+		Item item = buscarItem(id);
+		if(item == null) {
+			throw new IllegalArgumentException("Item nao encontrado: " + id + ".");
+		}
+		if(!(tags == null || tags.equals(""))) 
+			item.setTags(tags);
+		
+		if(!(quantidade == 0)) 
+			item.setQuantidade(quantidade);
+		
+		itens.remove(item);
+		itens.add(item);
+		return item.toString();
+	}
+	
+	/**
+	 * Metodo de remorcao de item que esta associado a um usuario
+	 * buscar o item que esta armazenado no arraylist referente ao numero de identificacao passado
+	 * e o remove.
+	 * @param id
+	 * 		representacao do numero de identificacao do item que sera removido
+	 * @throws IllegalAccessException
+	 */
+	
+	public void removeItemParaDoacao(int id) throws IllegalAccessException  {
+		if(itens.size() == 0) 
+			throw new IllegalAccessException("O Usuario nao possui itens cadastrados.");
+		
+		Item item = buscarItem(id);
+		
+		if(item == null) 
+			throw new IllegalAccessException("Item nao encontrado: " + id + ".");
+		
+		itens.remove(item);
+	}
+	
+	/**
+	 * Metodo de busca e itens cadastrados. Percorre o array de itens dos usuarios e retorna o item
+	 * associado ao numero de identificacao passado.
+	 * @param id
+	 * 		representacao do numero de identificacao do item que sera procurado.
+	 * @return
+	 */
+	
+	private Item buscarItem(int id) {
+		Item item = null;
+		for (int i = 0; i < itens.size(); i++) {
+			if(itens.get(i).getIdItem() == id) {
+				item = itens.get(i);
+			}
+		}
+		return item;
+	}
+	
+	/**
+	 * "Metodo em Exceçao". Utilizacao de polimorfismo para buscar um item cadastrado a um usuario
+	 * apartir da sua string de representacao referente a descricao do item.
+	 * @param descricaoItem
+	 * 		representacao da descricao do item que sta armazenado.
+	 * @return
+	 * 		retorna o item associado a descricao passado como parametro.
+	 */
+	
+	private Item buscarItem(String descricaoItem) {
+		Item item = null;
+		for (int i = 0; i < itens.size(); i++) {
+			if(itens.get(i).getDescricaoItem().equals(descricaoItem)) {
+				item = itens.get(i);
+			}
+		}
+		return item;
+	}
+	
 	/**
 	 * Hashcode and equals.
 	 */
@@ -190,8 +337,6 @@ public class Usuario {
 			return false;
 		return true;
 	}
-
-
-	
 }	
+
 	

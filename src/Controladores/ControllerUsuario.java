@@ -1,13 +1,11 @@
 package Controladores;
 
-
-import java.util.ArrayList;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import Usuarios.Usuario;
 
+import Usuarios.Usuario;
 
 /**
  * representacao do controle de operacoes(CRUD)
@@ -16,8 +14,11 @@ import Usuarios.Usuario;
 
 public class ControllerUsuario {
 
-	private ArrayList<String> descritores = new ArrayList<String>();
-	private ArrayList<Usuario> listaUsuario = new ArrayList<>();
+	public ArrayList<Usuario> listaUsuario;
+	
+	public ControllerUsuario () {
+		this.listaUsuario = new ArrayList<Usuario>();
+	}
 						
 	/**
 	 * Metodo de leitura dos arquivos(CSV) para cadastro de usuarios e atualizacao das 
@@ -52,8 +53,6 @@ public class ControllerUsuario {
         leitor.close();
     }
 
-	
-
 	/**
 	 * Metodo de cadastro de usuarios doadores no sistema. 
 	 * * @param nome
@@ -74,7 +73,6 @@ public class ControllerUsuario {
 		}
 		
 		Usuario novoDoador = new Usuario(id, nome, email, celular, classe, "doador");
-		novoDoador.setStatus("doador");
 		listaUsuario.add(novoDoador);
 		
 		return novoDoador.getid();
@@ -184,25 +182,6 @@ public class ControllerUsuario {
 		listaUsuario.remove(usuario);
 	}
 	
-	public void adicionaDescritor(String descricao) {
-		
-		if(descricao == null || descricao.equals("")) {
-			throw new IllegalArgumentException("Entrada invalida: descricao nao pode ser vazia ou nula.");
-		}
-		
-		if(descritores.contains(descricao)) {
-			throw new IllegalArgumentException("Descritor de Item ja existente: " + this.descritores + ".");
-		}
-		
-		descritores.add(descricao);
-		
-	}
-	
-	public String adicionaItemParaDoacao(String idDoador, String descricaoItem, int quantidade, String tag) {
-		
-		return "" ;
-		
-	}
 
 	/**
 	 * Metodo com finalidade de buscar usuarios especifico que estao cadastrados no sistema
@@ -213,7 +192,7 @@ public class ControllerUsuario {
 	 * 		retorno o usuario associado
 	 */
 	
-	private Usuario buscarUsuarioId(String id) {
+	public Usuario buscarUsuarioId(String id) {
 		Usuario usuario = null;
 		for (int i = 0; i < listaUsuario.size(); i++) {
 			if(listaUsuario.get(i).getid().equals(id)) {
@@ -241,4 +220,5 @@ public class ControllerUsuario {
 		}
 		return usuario;
 	}
+	
 }
