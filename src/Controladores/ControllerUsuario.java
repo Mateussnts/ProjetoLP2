@@ -220,5 +220,8 @@ public class ControllerUsuario {
 		}
 		return usuario;
 	}
-	
+
+	public ArrayList<Usuario> getListaUsuario() {
+		return listaUsuario;
+	}
 }

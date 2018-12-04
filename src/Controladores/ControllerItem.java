@@ -2,8 +2,10 @@ package Controladores;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import Interfaces.DescricaoComparator;
+import Interfaces.ItensComparator;
 import Item.Item;
 import Usuarios.Usuario;
 
@@ -27,9 +29,9 @@ public class ControllerItem {
 	}
 	
 	/**
-	 * Metodo para adiciocao de descriçao a itens que serao cadastrados;
+	 * Metodo para adiciocao de descriï¿½ao a itens que serao cadastrados;
 	 * @param descricao
-	 * 		descriçao dos itens que sera doado.
+	 * 		descriï¿½ao dos itens que sera doado.
 	 */
 	
 	public void adicionaDescritor(String descricao) {
@@ -91,7 +93,7 @@ public class ControllerItem {
 	 * @param idDoador
 	 * 		representacao do numero de identificacao do usuario doador.
 	 * @return
-	 * 		retorna a representaçao textual de um item especifico que esta relacibado a um usuario especifico.
+	 * 		retorna a representaï¿½ao textual de um item especifico que esta relacibado a um usuario especifico.
 	 */
 	
 	public String exibeItem(int id, String idDoador) {
@@ -213,7 +215,11 @@ public class ControllerItem {
 	 */
 	
 	public String listaItensParaDoacao() {
-		return null;
+		//List<Usuario> usuarios = userControl.listaUsuario;
+		//List<Item> itensDoados = new ArrayList<>();
+		//for (Usuario usuario : usuarios) {
+		return "";
+		//}
 	}
 
 	/**
@@ -225,9 +231,22 @@ public class ControllerItem {
 	 */
 	
 	public String pesquisaItemParaDoacaoPorDescricao(String desc) {
+		String itensDesc = "";
+		ArrayList<Item> itensPorDesc = new ArrayList<>();
+		
 		if(desc == null || desc.equals(""))
 			throw new IllegalArgumentException("Entrada invalida: texto da pesquisa nao pode ser vazio ou nulo.");
 		
-		return null;
+		for (int i = 0; i < itens.size(); i++) {
+			Item item = itens.get(i);
+			if(item.getDescricaoItem().contains(desc)) 
+				itensPorDesc.add(item);
+		}
+		
+		Collections.sort(itensPorDesc, new ItensComparator());
+		for (Item item : itensPorDesc) {
+			itensDesc += item.toString() + " | ";
+		}
+		return itensDesc.substring(0, itensDesc.length()-3);
 	}
 }
