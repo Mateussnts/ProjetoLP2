@@ -1,6 +1,10 @@
 package Controladores;
 
 import java.util.ArrayList;
+import java.util.Collections;
+
+import Interfaces.DescricaoComparator;
+import Item.Item;
 import Usuarios.Usuario;
 
 /**
@@ -11,11 +15,15 @@ import Usuarios.Usuario;
 
 public class ControllerItem {
 	
-	private ArrayList<String> descritores;
+	private static ArrayList<String> descritores;
 	public static int idItem;
+	private ControllerUsuario userControl;
+	public static ArrayList<Item> itens;
 	
-	public ControllerItem () {
+	public ControllerItem (ControllerUsuario controllerUsuario) {
 		descritores = new ArrayList<String>();
+		this.userControl = controllerUsuario;
+		ControllerItem.itens = new ArrayList<Item>();
 	}
 	
 	/**
@@ -32,7 +40,20 @@ public class ControllerItem {
 		if(descritores.contains(descricao.toLowerCase()))
 			throw new IllegalArgumentException("Descritor de Item ja existente: " + descricao.toLowerCase() + ".");
 		
-		descritores.add(descricao);
+	
+		descritores.add(descricao.toLowerCase());
+	}
+	
+	/**
+	 * Metodo para adicionar descricao de itens que foram adicionados na criacao dos itens.
+	 * @param descricaoItem
+	 * 		descricao do item que sera a dicionado aos descritores do sistema.
+	 */
+	
+	public static void adicionarDescricao(String descricaoItem) {
+		if(!descritores.contains(descricaoItem.toLowerCase())) {
+			descritores.add(descricaoItem);
+		}
 	}
 	
 	/**
@@ -54,7 +75,7 @@ public class ControllerItem {
 		if(idDoador == null || idDoador.equals("")) 
 			throw new IllegalArgumentException("Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
 		
-		Usuario usuario = ControllerSistema.controllerUsuario.buscarUsuarioId(idDoador);
+		Usuario usuario = userControl.buscarUsuarioId(idDoador);
 		if(usuario == null) {
 			throw new IllegalArgumentException("Usuario nao encontrado: " + idDoador + ".");
 		}
@@ -74,7 +95,7 @@ public class ControllerItem {
 	 */
 	
 	public String exibeItem(int id, String idDoador) {
-		Usuario usuario = ControllerSistema.controllerUsuario.buscarUsuarioId(idDoador);
+		Usuario usuario = userControl.buscarUsuarioId(idDoador);
 		
 		if(usuario == null) 
 			throw new IllegalArgumentException("Usuario nao encontrado: " + idDoador + ".");
@@ -105,7 +126,7 @@ public class ControllerItem {
 		if(idDoador == null || idDoador.equals("")) 
 			throw new IllegalArgumentException("Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
 		
-		Usuario usuario = ControllerSistema.controllerUsuario.buscarUsuarioId(idDoador);
+		Usuario usuario = userControl.buscarUsuarioId(idDoador);
 		
 		if(usuario == null) 
 			throw new IllegalArgumentException("Usuario nao encontrado: " + idDoador + ".");
@@ -130,11 +151,83 @@ public class ControllerItem {
 		if(idDoador == null || idDoador.equals(""))
 			throw new IllegalArgumentException("Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
 		
-		Usuario usuario = ControllerSistema.controllerUsuario.buscarUsuarioId(idDoador);
+		Usuario usuario = userControl.buscarUsuarioId(idDoador);
 		
 		if(usuario == null) 
 			throw new IllegalArgumentException("Usuario nao encontrado: " + idDoador + ".");
 		
 		usuario.removeItemParaDoacao(id);
+	}
+
+	/**
+	 * Metodo para listagem de descritores ordenados pela sua descricao.
+	 * @return
+	 * 		retorna a descricao e quantidade de todos os itens que foram cadastrados no sistema.
+	 */
+	
+	public String listaDescritorDeItensParaDoacao() {
+		String saida = "";
+		ArrayList<String> listaDescritores = VerificaDescritorEmItens();
+		DescricaoComparator dc = new DescricaoComparator();
+		Collections.sort(listaDescritores,dc);
+		
+		for (int i = 0; i < listaDescritores.size()-1; i++) {
+			saida += listaDescritores.get(i) + " | ";
+		}
+		
+		saida += listaDescritores.get(listaDescritores.size()-1);
+		
+		return saida;
+	}
+
+	/**
+	 * Metodo para verificacao do descritores.
+	 * Verifica se existe algum item cadatsrado no sistema com a descricao dos descritores
+	 * @return
+	 * 		retorna a lista dos descritores com todos os itens que passarao pelo sistema.
+	 */
+	
+	private ArrayList<String> VerificaDescritorEmItens() {
+		ArrayList<String> listaDescritores = new ArrayList<String>();
+		boolean contemDescritor = false;
+		
+		for (int i = 0; i < descritores.size(); i++) {
+			for (int j = 0; j < itens.size(); j++) {
+				if(descritores.get(i).equals(itens.get(j).getDescricaoItem())) {
+					listaDescritores.add(itens.get(j).listaItens());
+					contemDescritor = true;
+				}
+			}
+			if(contemDescritor == false) 
+				listaDescritores.add("0 - " + descritores.get(i));
+			
+			contemDescritor = false;
+		}
+		return listaDescritores;
+	}
+
+	/**
+	 * Metodo para listagem de itens com toda sua representacao que estao cadastrados no sistema.
+	 * @return
+	 * 		retorna todos os itens cadastrados no sistema.
+	 */
+	
+	public String listaItensParaDoacao() {
+		return null;
+	}
+
+	/**
+	 * Metodo para pesquisa de itens a partir de um string de descricao.
+	 * @param
+	 * 		representacao da string que sera passada para procura dos itens semelhantes.
+	 * @return
+	 * 		Retorna todos os itens referente a string passada como Parametro.
+	 */
+	
+	public String pesquisaItemParaDoacaoPorDescricao(String desc) {
+		if(desc == null || desc.equals(""))
+			throw new IllegalArgumentException("Entrada invalida: texto da pesquisa nao pode ser vazio ou nulo.");
+		
+		return null;
 	}
 }

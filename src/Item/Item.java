@@ -10,7 +10,7 @@ public class Item {
 	private String descricaoItem;
 	private String tags;
     private int idItem;
-	private int quantidade;
+	public int quantidade;
 	
 	/**
 	 * Metodo construtor do item que sera armazenado.
@@ -77,6 +77,17 @@ public class Item {
 	public void setTags(String tags) {
 		this.tags = tags;
 	}
+	
+	/**
+	 * Metodo para retornar a representacao da quantidade e da descricao do item para o metdodo de listagem
+	 * de descricao.
+	 * @return
+	 * 		retorna a quantidade e adescricao do item.
+	 */
+	
+	public String listaItens() {
+		return this.getQuantidade() + " - " + this.getDescricaoItem(); 
+	}
 
 	/**
 	 * Representacao textual do item com suas informacoes.
@@ -105,4 +116,5 @@ public class Item {
 		}
 		return saida;
 	}
+
 }

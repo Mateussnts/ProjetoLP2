@@ -11,16 +11,16 @@ import java.io.IOException;
 
 public class ControllerSistema {
 	
-	public static ControllerUsuario controllerUsuario;
+	private ControllerUsuario controllerUsuario;
 	private ControllerItem controllerItem;
 	
 	public ControllerSistema() {
 		controllerUsuario = new ControllerUsuario();
-		controllerItem = new ControllerItem();
+		controllerItem = new ControllerItem(controllerUsuario);
 	}
 
 	public void lerReceptores(String caminho) throws IOException {
-		ControllerSistema.controllerUsuario.lerReceptores(caminho);
+		this.controllerUsuario.lerReceptores(caminho);
 	}
 
 	public String adicionaDoador(String id, String nome, String email, String celular, String classe) {
@@ -40,7 +40,7 @@ public class ControllerSistema {
 	}
 
 	public void removeUsuario(String id) {
-		ControllerSistema.controllerUsuario.removeUsuario(id);
+		this.controllerUsuario.removeUsuario(id);
 	}
 
 	public void adicionaDescritor(String descricao) {
@@ -63,4 +63,16 @@ public class ControllerSistema {
 		this.controllerItem.removeItemParaDoacao(id,idDoador);
 	}
 
+	public String listaItensParaDoacao() {
+		return this.controllerItem.listaItensParaDoacao();
+	}
+
+	public String listaDescritorDeItensParaDoacao() {
+		return this.controllerItem.listaDescritorDeItensParaDoacao();
+	}
+	
+	public String pesquisaItemParaDoacaoPorDescricao(String desc) {
+		return this.controllerItem.pesquisaItemParaDoacaoPorDescricao(desc);
+	}
+	
 }

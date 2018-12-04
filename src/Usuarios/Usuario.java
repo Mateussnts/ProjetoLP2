@@ -1,7 +1,6 @@
 package Usuarios;
 
 import java.util.ArrayList;
-
 import Controladores.ControllerItem;
 import Item.Item;
 
@@ -160,12 +159,17 @@ public class Usuario {
 		if (item == null) {
 			item = new Item(this.id, descricaoItem, quantidade, tags,idItem);
 			itens.add(item);
+			ControllerItem.itens.add(item);
 			ControllerItem.idItem ++;
+			ControllerItem.adicionarDescricao(descricaoItem);
 			return idItem;
 		} else {
 			itens.remove(item);
+			ControllerItem.adicionarDescricao(descricaoItem);
+			ControllerItem.itens.remove(item);
 			item = new Item(this.id, descricaoItem, quantidade, tags,item.getIdItem());
 			itens.add(item);
+			ControllerItem.itens.add(item);
 			return idItem;
 		}
 	}
@@ -216,6 +220,8 @@ public class Usuario {
 		if(!(quantidade == 0)) 
 			item.setQuantidade(quantidade);
 		
+		ControllerItem.itens.remove(item);
+		ControllerItem.itens.add(item);
 		itens.remove(item);
 		itens.add(item);
 		return item.toString();
@@ -240,8 +246,9 @@ public class Usuario {
 			throw new IllegalAccessException("Item nao encontrado: " + id + ".");
 		
 		itens.remove(item);
+		ControllerItem.itens.remove(item);
 	}
-	
+		
 	/**
 	 * Metodo de busca e itens cadastrados. Percorre o array de itens dos usuarios e retorna o item
 	 * associado ao numero de identificacao passado.
@@ -278,6 +285,7 @@ public class Usuario {
 		}
 		return item;
 	}
+	
 	
 	/**
 	 * Hashcode and equals.
