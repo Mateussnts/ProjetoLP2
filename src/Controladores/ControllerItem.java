@@ -215,11 +215,24 @@ public class ControllerItem {
 	 */
 	
 	public String listaItensParaDoacao() {
-		//List<Usuario> usuarios = userControl.listaUsuario;
-		//List<Item> itensDoados = new ArrayList<>();
-		//for (Usuario usuario : usuarios) {
-		return "";
-		//}
+		List<Usuario> usuarios = userControl.listaUsuario;
+		List<Item> itensDoados = new ArrayList<>();
+		
+		for (int i = 0; i < itens.size(); i++) {
+			Item itemPorIndice = itens.get(i);
+			itensDoados.add(itemPorIndice);
+		}
+		
+		Collections.sort(itensDoados);
+		String saida = "";
+		
+		for (int i = 0; i < itensDoados.size(); i++) {
+			for (int j = 0; j < usuarios.size(); j++) 
+				if(itensDoados.get(i).getIdDoador().equals(usuarios.get(j).getid())) {
+					saida += itensDoados.get(i).toString() + ", doador: " + usuarios.get(j).getNome() + "/" + usuarios.get(j).getid() + " | ";
+			}
+		}
+		return saida.substring(0, saida.length()-3);
 	}
 
 	/**

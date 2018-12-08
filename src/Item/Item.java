@@ -5,7 +5,7 @@ package Item;
  *
  */
 
-public class Item {
+public class Item implements Comparable<Item>{
 	private String idDoador;
 	private String descricaoItem;
 	private String tags;
@@ -117,4 +117,15 @@ public class Item {
 		return saida;
 	}
 
+	@Override
+	public int compareTo(Item outroItem) {
+		if (this.getQuantidade() > outroItem.getQuantidade()) {
+            return -1;
+        }
+        if (this.getQuantidade() < outroItem.getQuantidade()) {
+            return 1;
+        }
+ 
+        return this.getDescricaoItem().compareTo(outroItem.getDescricaoItem());
+	}
 }
