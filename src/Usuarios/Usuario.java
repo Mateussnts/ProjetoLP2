@@ -268,7 +268,7 @@ public class Usuario {
 	}
 	
 	/**
-	 * "Metodo em Exceçao". Utilizacao de polimorfismo para buscar um item cadastrado a um usuario
+	 * "Metodo em Excecao". Utilizacao de polimorfismo para buscar um item cadastrado a um usuario
 	 * apartir da sua string de representacao referente a descricao do item.
 	 * @param descricaoItem
 	 * 		representacao da descricao do item que sta armazenado.

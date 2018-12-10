@@ -7,7 +7,7 @@ import easyaccept.EasyAccept;
 
 /**
  * Representacao da fachada de operacoes do sistema, recebe metodos da classe de controle geral.
- * responsavel por ler os devidos controllers das classes que necessitam de operaçoes.
+ * responsavel por ler os devidos controllers das classes que necessitam de operaï¿½oes.
  */
 
 public class Facade {
@@ -16,7 +16,8 @@ public class Facade {
 	
 	public static void main(String[] args) {
 		args = new String[] {"sistema.Facade", "EasyAccept/use_case_1.txt", "EasyAccept/use_case_2.txt",
-											   "EasyAccept/use_case_3.txt", "EasyAccept/use_case_4.txt"};
+											   "EasyAccept/use_case_3.txt", "EasyAccept/use_case_4.txt",
+											   "EasyAccept/use_case_5.txt"};
 		EasyAccept.main(args);
 	}
 	
@@ -84,15 +85,19 @@ public class Facade {
 		return controller.adicionaItemNecessario(idReceptor, descricaoItem, quantidade, tags);
 	}
 	
-	public String listaItensNecessarios(int idItem, String idReceptor) {
-		return controller.listaItensNecessarios(idItem, idReceptor);
+	public String listaItensNecessarios() {
+		return controller.listaItensNecessarios();
 	}
 	
-	public String atualizaItemNecessario(int id, String idReceptor, int quantidade, String tags) {
+	public String atualizaItemNecessario(String idReceptor, int id, int quantidade, String tags) {
 		return controller.atualizaItemNecessario(id, idReceptor, quantidade, tags);
 	}
 	
-	public void removeItemNecessario(int id, String idReceptor)throws IllegalAccessException{
+	public void removeItemNecessario(String idReceptor, int id)throws IllegalAccessException{
 		this.controller.removeItemNecessario(id, idReceptor);
+	}
+
+	public String match(String idReceptor, int idItemNecessario) {
+		return this.controller.match(idReceptor, idItemNecessario);
 	}
 }

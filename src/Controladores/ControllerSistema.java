@@ -79,8 +79,8 @@ public class ControllerSistema {
 		return this.controllerItem.adicionaItemNecessario(idReceptor, descricaoItem, quantidade, tags);
 	}
 
-	public String listaItensNecessarios(int idItem, String idReceptor) {
-		return this.controllerItem.listaItensNecessarios(idItem, idReceptor);
+	public String listaItensNecessarios() {
+		return this.controllerItem.listaItensNecessarios();
 	}
 
 	public String atualizaItemNecessario(int id, String idReceptor, int quantidade, String tags) {
@@ -91,5 +91,7 @@ public class ControllerSistema {
 		this.controllerItem.removeItemNecessario(id, idReceptor);
 	}
 	
-	
+	public String match(String idReceptor, int idItemNecessario) {
+		return this.controllerItem.match(idReceptor, idItemNecessario);
+	}
 }

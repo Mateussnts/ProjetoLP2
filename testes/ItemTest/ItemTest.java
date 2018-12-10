@@ -1,8 +1,7 @@
 package ItemTest;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.BeforeEach;
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import Item.Item;
@@ -13,38 +12,34 @@ class ItemTest {
 		
 		private Item item;
 
-		//@Test(expected=NullPointerException.class)
-		public void testDescricaoNula() {
-			
-			item = new Item("12345678901", null, 1, "azul, vermelho", 0);
+		@Test
+		public void testDescricaoNula()  {
+			assertThrows(NullPointerException.class,
+					() -> new Item("12345678901", null, 1, "azul, vermelho", 0));
 		}
 		
-		//@Test(expected=NullPointerException.class)
+		@Test
 		public void testDescricaovazia() {
-			
-			item = new Item("12345678901", "", 1, "azul, vermelho", 0);
-			
+			assertThrows(NullPointerException.class,
+					() -> new Item("12345678901", "", 1, "azul, vermelho", 0));	
 		}
 		
-		//@Test(expected=NullPointerException.class)
+		@Test
 		public void testIdDoadornulo() {
-			
-			item = new Item(null, "casaco", 1, "azul, vermelho", 0);
-			
+			assertThrows(NullPointerException.class,
+					() -> new Item(null,"casaco", 1, "azul, vermelho", 0));
 		}
 		
-		//@Test(expected=NullPointerException.class)
+		@Test
 		public void testIdDoadorvazia() {
-			
-			item = new Item("", "casaco", 1, "azul, vermelho", 0);
-			
+			assertThrows(NullPointerException.class,
+					() -> new Item("","casaco", 1, "azul, vermelho", 0));	
 		}
 		
-		//@Test(expected=NullPointerException.class)
+		@Test
 		public void testQuantidadeMenorQueZero() {
-			
-			item = new Item("12345678901", "casaco", -1, "azul, vermelho", 0);
-			
+			assertThrows(NullPointerException.class,
+					() -> new Item("12345678901","casaco", -1, "azul, vermelho", 0));	
 		}
 		
 		@Test

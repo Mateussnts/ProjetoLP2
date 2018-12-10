@@ -93,7 +93,7 @@ public class ControllerItem {
 	 * @param idDoador
 	 * 		representacao do numero de identificacao do usuario doador.
 	 * @return
-	 * 		retorna a representa�ao textual de um item especifico que esta relacibado a um usuario especifico.
+	 * 		retorna a representacao textual de um item especifico que esta relacibado a um usuario especifico.
 	 */
 	
 	public String exibeItem(int id, String idDoador) {
@@ -270,7 +270,7 @@ public class ControllerItem {
 	 * 		numero de identificacao do receptor.
 	 * @param descricaoItem
 	 * 		descricao do item.
-	 * @param quantidade
+	 * @param quantidadeid
 	 * 		quantidade dos itens.
 	 * @param tags
 	 * 		tags do item.
@@ -279,7 +279,6 @@ public class ControllerItem {
 	 */
 	
 	public int adicionaItemNecessario(String idReceptor, String descricaoItem, int quantidade, String tags) {
-		System.out.println(idReceptor + descricaoItem + quantidade + tags);
 		
 		if(descricaoItem == null || descricaoItem.equals("")) 
 			throw new IllegalArgumentException("Entrada invalida: descricao nao pode ser vazia ou nula.");
@@ -305,21 +304,21 @@ public class ControllerItem {
 	 * 		retorna a representacao textual de um item especifico que esta relacibado a um usuario especifico.
 	 */
 	
-	public String listaItensNecessarios(int idItem, String idReceptor) {
-		Usuario usuario = userControl.buscarUsuarioId(idReceptor);
+	public String listaItensNecessarios() {
+		//Usuario usuario = userControl.buscarUsuarioId(idReceptor);
 		
-		if(usuario == null) 
-			throw new IllegalArgumentException("Usuario nao encontrado: " + idReceptor + ".");
+		//if(usuario == null) 
+		//	throw new IllegalArgumentException("Usuario nao encontrado: " + idReceptor + ".");
 		
-		usuario.exibirItem(idItem);
-		return usuario.exibirItem(idItem) + "Receptor: " + usuario.getNome() + "/" + idReceptor + "\""+ System.lineSeparator();
+		//usuario.exibirItem(idItem);
+		return null;
 	}
 	
 	/**
 	 * Metodo de atualizacao das informacoes do item(quantidade e tag) acessa a classe usuario e busca o item
 	 * associado ao numero de identificacao do item e do usuario passado.
 	 * @param id
-	 * 		represnetacao em inteiro do numero de identificacao do item.
+	 * 		representacao em inteiro do numero de identificacao do item.
 	 * @param idReceptor
 	 * 		representacao em str do numero de identificacao do Receptor
 	 * @param quantidade
@@ -334,7 +333,7 @@ public class ControllerItem {
 		if(id < 0) 
 			throw new IllegalArgumentException("Entrada invalida: id do item nao pode ser negativo.");
 		
-		if(idReceptor.equals("") || idReceptor == null) 
+		if(idReceptor == null || idReceptor.equals("")) 
 			throw new IllegalArgumentException("Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
 		
 		Usuario usuario = userControl.buscarUsuarioId(idReceptor);
@@ -342,7 +341,7 @@ public class ControllerItem {
 		if(usuario == null) 
 			throw new IllegalArgumentException("Usuario nao encontrado: " + idReceptor + ".");	
 		
-		return usuario.atualizaItem(id, quantidade, tags);
+		return usuario.atualizaItem(id, quantidade, tags).toLowerCase();
 	}
 	
 	/**
@@ -355,19 +354,45 @@ public class ControllerItem {
 	 * @throws IllegalAccessException
 	 */
 	
-	public void removeItemNecessario(int id, String idReceptor) throws IllegalAccessException{
-		if(id < 0) 
-			throw new IllegalArgumentException("Entrada invalida: id do item nao pode ser negativo.");
-		
+	public void removeItemNecessario(int idItemNecessario, String idReceptor) throws IllegalAccessException{
 		if(idReceptor == null || idReceptor.equals("")) 
 			throw new IllegalArgumentException("Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
+		
+		if(idItemNecessario < 0) 
+			throw new IllegalArgumentException("Entrada invalida: id do item nao pode ser negativo.");
 		
 		Usuario usuario = userControl.buscarUsuarioId(idReceptor);
 		
 		if(usuario == null) 
 			throw new IllegalArgumentException("Usuario nao encontrado: " + idReceptor + ".");
 		
-		usuario.removeItem(id);
+		usuario.removeItem(idItemNecessario);
 	}
+
+	/**
+	 * metodo de matches entre items ....
+	 * @param idReceptor
+	 * @param idItemNecessario
+	 * @return
+	 */
+	
+	public String match(String idReceptor, int idItemNecessario) {
+		if(idReceptor == null || idReceptor.equals("")) 
+			throw new IllegalArgumentException("Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
+		
+		if(idItemNecessario < 0) 
+			throw new IllegalArgumentException("Entrada invalida: id do item nao pode ser negativo.");
+	
+		Usuario usuario = userControl.buscarUsuarioId(idReceptor);
+		
+		if(usuario == null) 
+			throw new IllegalArgumentException("Usuario nao encontrado: " + idReceptor + ".");
+		
+		if(!usuario.getStatus().equals("receptor"))
+			throw new IllegalArgumentException("O Usuario deve ser um receptor: " + idReceptor + ".");
+		
+		return null;
+	}
+	
 }
 
