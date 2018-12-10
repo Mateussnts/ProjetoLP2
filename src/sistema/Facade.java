@@ -16,7 +16,7 @@ public class Facade {
 	
 	public static void main(String[] args) {
 		args = new String[] {"sistema.Facade", "EasyAccept/use_case_1.txt", "EasyAccept/use_case_2.txt",
-											   "EasyAccept/use_case_3.txt"};
+											   "EasyAccept/use_case_3.txt", "EasyAccept/use_case_4.txt"};
 		EasyAccept.main(args);
 	}
 	
@@ -78,5 +78,21 @@ public class Facade {
 
 	public String pesquisaItemParaDoacaoPorDescricao(String desc) {
 		return this.controller.pesquisaItemParaDoacaoPorDescricao(desc);
+	}
+
+	public int adicionaItemNecessario(String idReceptor, String descricaoItem, int quantidade, String tags) {
+		return controller.adicionaItemNecessario(idReceptor, descricaoItem, quantidade, tags);
+	}
+	
+	public String listaItensNecessarios(int idItem, String idReceptor) {
+		return controller.listaItensNecessarios(idItem, idReceptor);
+	}
+	
+	public String atualizaItemNecessario(int id, String idReceptor, int quantidade, String tags) {
+		return controller.atualizaItemNecessario(id, idReceptor, quantidade, tags);
+	}
+	
+	public void removeItemNecessario(int id, String idReceptor)throws IllegalAccessException{
+		this.controller.removeItemNecessario(id, idReceptor);
 	}
 }

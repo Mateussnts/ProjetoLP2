@@ -95,7 +95,7 @@ public class Item implements Comparable<Item>{
 	
 	@Override
 	public String toString() {
-		return idItem + " - " + descricaoItem + ", " + "tags: [" + splitada() + "], quantidade: " + quantidade;
+		return idItem + " - " + descricaoItem + ", " + "tags: [" + separador() + "], quantidade: " + quantidade;
 	}
 	
 	/**
@@ -104,7 +104,7 @@ public class Item implements Comparable<Item>{
 	 * 		retorna a tag separada e concatenada ao sistema.
 	 */
 	
-	private String splitada() {
+	private String separador() {
 		String[] tagsSplited = tags.split(",");
 		String saida = "";
 		for (int i = 0; i < tagsSplited.length; i++) {

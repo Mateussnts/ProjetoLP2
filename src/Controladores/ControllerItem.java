@@ -17,9 +17,9 @@ import Usuarios.Usuario;
 
 public class ControllerItem {
 	
+	private ControllerUsuario userControl;
 	private static ArrayList<String> descritores;
 	public static int idItem;
-	private ControllerUsuario userControl;
 	public static ArrayList<Item> itens;
 	
 	public ControllerItem (ControllerUsuario controllerUsuario) {
@@ -29,9 +29,9 @@ public class ControllerItem {
 	}
 	
 	/**
-	 * Metodo para adiciocao de descri�ao a itens que serao cadastrados;
+	 * Metodo para a adicao de descricao aos itens que serao cadastrados;
 	 * @param descricao
-	 * 		descri�ao dos itens que sera doado.
+	 * 		descricao dos itens que sera doado.
 	 */
 	
 	public void adicionaDescritor(String descricao) {
@@ -82,7 +82,7 @@ public class ControllerItem {
 			throw new IllegalArgumentException("Usuario nao encontrado: " + idDoador + ".");
 		}
 
-		return usuario.adicionaItemParaDoacao(descricaoItem, quantidade, tags);
+		return usuario.adicionaItem(descricaoItem, quantidade, tags);
 	}
 
 	/**
@@ -133,7 +133,7 @@ public class ControllerItem {
 		if(usuario == null) 
 			throw new IllegalArgumentException("Usuario nao encontrado: " + idDoador + ".");
 
-		return usuario.atualizaItemParaDoacao(id, quantidade, tags);
+		return usuario.atualizaItem(id, quantidade, tags);
 	}
 
 	/**
@@ -158,7 +158,7 @@ public class ControllerItem {
 		if(usuario == null) 
 			throw new IllegalArgumentException("Usuario nao encontrado: " + idDoador + ".");
 		
-		usuario.removeItemParaDoacao(id);
+		usuario.removeItem(id);
 	}
 
 	/**
@@ -262,4 +262,112 @@ public class ControllerItem {
 		}
 		return itensDesc.substring(0, itensDesc.length()-3);
 	}
+
+	/**
+	 * Metodo de adicao de itens para receptores tendo como parametros a descricao do itens, quantidades e tags, 
+	 * acessa a classe usuario e armazena os itens a um usuario especifico.
+	 * @param id
+	 * 		numero de identificacao do receptor.
+	 * @param descricaoItem
+	 * 		descricao do item.
+	 * @param quantidade
+	 * 		quantidade dos itens.
+	 * @param tags
+	 * 		tags do item.
+	 * @return
+	 * 		retorna o numero de identificacao do item.
+	 */
+	
+	public int adicionaItemNecessario(String idReceptor, String descricaoItem, int quantidade, String tags) {
+		System.out.println(idReceptor + descricaoItem + quantidade + tags);
+		
+		if(descricaoItem == null || descricaoItem.equals("")) 
+			throw new IllegalArgumentException("Entrada invalida: descricao nao pode ser vazia ou nula.");
+		
+		if(quantidade < 0) 
+			throw new IllegalArgumentException("Entrada invalida: quantidade deve ser maior que zero.");
+		
+		if(idReceptor == null || idReceptor.equals("")) 
+			throw new IllegalArgumentException("Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
+		
+		Usuario receptor = userControl.buscarUsuarioId(idReceptor);
+		return receptor.adicionaItem(descricaoItem, quantidade, tags);
+	}
+	
+	/**
+	 * Metodo de listagem de itens cadastrados no sistema, acessa a classe de usuario que os itens estao
+	 * armazenados e faz uma busca pelo usuario representado por seu ID, em seguida busca o item relacionado.
+	 * @param id
+	 * 		representacao do numero de identificacao do item.
+	 * @param idReceptor
+	 * 		representacao do numero de identificacao do usuario receptor.
+	 * @return
+	 * 		retorna a representacao textual de um item especifico que esta relacibado a um usuario especifico.
+	 */
+	
+	public String listaItensNecessarios(int idItem, String idReceptor) {
+		Usuario usuario = userControl.buscarUsuarioId(idReceptor);
+		
+		if(usuario == null) 
+			throw new IllegalArgumentException("Usuario nao encontrado: " + idReceptor + ".");
+		
+		usuario.exibirItem(idItem);
+		return usuario.exibirItem(idItem) + "Receptor: " + usuario.getNome() + "/" + idReceptor + "\""+ System.lineSeparator();
+	}
+	
+	/**
+	 * Metodo de atualizacao das informacoes do item(quantidade e tag) acessa a classe usuario e busca o item
+	 * associado ao numero de identificacao do item e do usuario passado.
+	 * @param id
+	 * 		represnetacao em inteiro do numero de identificacao do item.
+	 * @param idReceptor
+	 * 		representacao em str do numero de identificacao do Receptor
+	 * @param quantidade
+	 * 		parametro que pode ser modificado no item.
+	 * @param tags
+	 * 		parametro que pode ser modificado no item.
+	 * @return
+	 * 		retorna o  item atualizado.
+	 */
+	
+	public String atualizaItemNecessario(int id, String idReceptor, int quantidade, String tags) {
+		if(id < 0) 
+			throw new IllegalArgumentException("Entrada invalida: id do item nao pode ser negativo.");
+		
+		if(idReceptor.equals("") || idReceptor == null) 
+			throw new IllegalArgumentException("Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
+		
+		Usuario usuario = userControl.buscarUsuarioId(idReceptor);
+		
+		if(usuario == null) 
+			throw new IllegalArgumentException("Usuario nao encontrado: " + idReceptor + ".");	
+		
+		return usuario.atualizaItem(id, quantidade, tags);
+	}
+	
+	/**
+	 * Metodo de remorcao de itens que estao armazenados no sistema, acessa os usuarios e os itens que
+	 * estao associados a um usuario e o remove.
+	 * @param id
+	 * 		representacao do numero de identificacao do item que sera removido
+	 * @param idReceptor
+	 * 		representacao do numero de identificaco do receptor que tera seu item removido.
+	 * @throws IllegalAccessException
+	 */
+	
+	public void removeItemNecessario(int id, String idReceptor) throws IllegalAccessException{
+		if(id < 0) 
+			throw new IllegalArgumentException("Entrada invalida: id do item nao pode ser negativo.");
+		
+		if(idReceptor == null || idReceptor.equals("")) 
+			throw new IllegalArgumentException("Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
+		
+		Usuario usuario = userControl.buscarUsuarioId(idReceptor);
+		
+		if(usuario == null) 
+			throw new IllegalArgumentException("Usuario nao encontrado: " + idReceptor + ".");
+		
+		usuario.removeItem(id);
+	}
 }
+

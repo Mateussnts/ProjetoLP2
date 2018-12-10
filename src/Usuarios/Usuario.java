@@ -153,7 +153,7 @@ public class Usuario {
 	 * 		retorna o numero de identificacao do item que foi gerado no seus respectivo cadastro.
 	 */
 	
-	public int adicionaItemParaDoacao(String descricaoItem, int quantidade, String tags) {
+	public int adicionaItem(String descricaoItem, int quantidade, String tags) {
 		Item item = buscarItem(descricaoItem);
 		int idItem = ControllerItem.idItem;
 		if (item == null) {
@@ -209,7 +209,7 @@ public class Usuario {
 	 * 		retorna o item com seus atributos atualizados e o armazena novamente.
 	 */
 	
-	public String atualizaItemParaDoacao(int id, int quantidade, String tags) {
+	public String atualizaItem(int id, int quantidade, String tags) {
 		Item item = buscarItem(id);
 		if(item == null) {
 			throw new IllegalArgumentException("Item nao encontrado: " + id + ".");
@@ -236,7 +236,7 @@ public class Usuario {
 	 * @throws IllegalAccessException
 	 */
 	
-	public void removeItemParaDoacao(int id) throws IllegalAccessException  {
+	public void removeItem(int id) throws IllegalAccessException  {
 		if(itens.size() == 0) 
 			throw new IllegalAccessException("O Usuario nao possui itens cadastrados.");
 		

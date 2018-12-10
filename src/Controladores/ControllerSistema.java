@@ -74,5 +74,22 @@ public class ControllerSistema {
 	public String pesquisaItemParaDoacaoPorDescricao(String desc) {
 		return this.controllerItem.pesquisaItemParaDoacaoPorDescricao(desc);
 	}
+
+	public int adicionaItemNecessario(String idReceptor, String descricaoItem, int quantidade, String tags) {
+		return this.controllerItem.adicionaItemNecessario(idReceptor, descricaoItem, quantidade, tags);
+	}
+
+	public String listaItensNecessarios(int idItem, String idReceptor) {
+		return this.controllerItem.listaItensNecessarios(idItem, idReceptor);
+	}
+
+	public String atualizaItemNecessario(int id, String idReceptor, int quantidade, String tags) {
+		return this.controllerItem.atualizaItemNecessario(id, idReceptor, quantidade, tags);
+	}
+
+	public void removeItemNecessario(int id, String idReceptor) throws IllegalAccessException {
+		this.controllerItem.removeItemNecessario(id, idReceptor);
+	}
+	
 	
 }
