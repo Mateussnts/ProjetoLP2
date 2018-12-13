@@ -46,7 +46,7 @@ class ItemTest {
 		public void testToString() {
 			
 			item = new Item("12345678901", "", 1, "azul, vermelho", 0);
-			assertEquals("0 - casaco, azul, vermelho, quantidade: 1", item.toString());
+			assertEquals("1 - casaco, azul, vermelho, quantidade: 1", item.toString());
 			
 		}
 	}

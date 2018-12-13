@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import entidades.Item;
 import entidades.Usuario;
 
 class UsuarioTest {
@@ -78,19 +77,29 @@ class UsuarioTest {
 		
 		@Test
 		public void testAdicionaItem() {
+			
 			usuario.adicionaItem("casaco", 1, "azul, vermelho");
-			//assertEquals();
+			assertEquals(1, usuario.adicionaItem("casaco", 1, "azul, vermelho"));
 			
 		}
 		
 		@Test
 		public void testExibirItem() {
-			usuario.exibirItem(2);
-			//assertEquals();
+			usuario.exibirItem(1);
+			assertEquals("1- casaco, azul, vermelho, quantidade: 1", usuario.exibirItem(1));
 		}
 		
+		@Test
+		public void testatualizaItem() {
+			usuario.atualizaItem(1, 2, "azul, vermelho");
+			assertEquals("1- casaco, azul, vermelho, quantidade: 2", usuario.atualizaItem(1, 2, "azul, vermelho"));
+		}
 		
-		
+		@Test
+		public void testremoveItem() throws IllegalAccessException {
+			usuario.removeItem(1);
+			assertEquals(null, usuario.exibirItem(1));
 	}
 	
+  }
 }
