@@ -128,4 +128,8 @@ public class Item implements Comparable<Item>{
  
         return this.getDescricaoItem().compareTo(outroItem.getDescricaoItem());
 	}
+
+	public void setIdItem(int idItem) {
+		this.idItem = idItem;
+	}
 }

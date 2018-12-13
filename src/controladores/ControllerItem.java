@@ -80,6 +80,9 @@ public class ControllerItem {
 		if(idDoador == null || idDoador.equals("")) 
 			throw new IllegalArgumentException("Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
 		
+		if(descricaoItem == null || descricaoItem.equals("")) 
+			throw new IllegalArgumentException("Entrada invalida: descricao nao pode ser vazia ou nula.");
+		
 		Usuario usuario = userControl.buscarUsuarioId(idDoador);
 		if(usuario == null) {
 			throw new IllegalArgumentException("Usuario nao encontrado: " + idDoador + ".");
@@ -292,15 +295,27 @@ public class ControllerItem {
 		if(idReceptor == null || idReceptor.equals("")) 
 			throw new IllegalArgumentException("Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
 		
-		item = new Item(idReceptor, descricaoItem.toLowerCase(), quantidade, tags,idItem);
-		itensNecessarios.add(item);
-		System.out.println(itensNecessarios);
 		ControllerItem.idItem++;
+		Item item = new Item(idReceptor, descricaoItem.toLowerCase(), quantidade, tags,idItem);
+		
+		adicionaItemNecessarios(item);
 		
 		Usuario receptor = userControl.buscarUsuarioId(idReceptor);
 		return receptor.adicionaItem(descricaoItem, quantidade, tags);
 	}
 	
+
+	private void adicionaItemNecessarios(Item item) {
+		for (int i = 0; i < itensNecessarios.size(); i++) {
+			if(itensNecessarios.get(i).getTags().equals(item.getTags())) {
+				itensNecessarios.get(i).setQuantidade(item.getQuantidade());
+				itensNecessarios.get(i).setIdItem(item.getIdItem());
+				return;
+			}
+		}
+		itensNecessarios.add(item);
+	}
+
 	/**
 	 * Metodo de listagem de itens cadastrados no sistema, acessa a classe de usuario que os itens estao
 	 * armazenados e faz uma busca pelo usuario representado por seu ID, em seguida busca o item relacionado.
@@ -314,19 +329,19 @@ public class ControllerItem {
 	
 	public String listaItensNecessarios() {
 				
-				String todosOsItens = "";
-				String idUsuario;
+		String todosOsItens = "";
+		String idUsuario;
 				
-				for(int i = 0; i < itensNecessarios.size(); i++) {
+		for(int i = 0; i < itensNecessarios.size(); i++) {
 					
-					idUsuario = itensNecessarios.get(i).getIdDoador();
-					Usuario receptor = userControl.buscarUsuarioId(idUsuario);
+			idUsuario = itensNecessarios.get(i).getIdDoador();
+			Usuario receptor = userControl.buscarUsuarioId(idUsuario);
 					
-					todosOsItens += itensNecessarios.get(i).toString() + ", Receptor: " + receptor.getNome() + "/" + receptor.getid() + " | ";
-				}
+			todosOsItens += itensNecessarios.get(i).toString() + ", Receptor: " + receptor.getNome() + "/" + receptor.getid() + " | ";
+		}
 				
-				return todosOsItens.substring(0, todosOsItens.length()-3);
-			}
+		return todosOsItens.substring(0, todosOsItens.length()-3);
+	}
 	
 	/**
 	 * Metodo de atualizacao das informacoes do item(quantidade e tag), acessa a classe usuario e busca o item
@@ -341,6 +356,7 @@ public class ControllerItem {
 	 * 		parametro que pode ser modificado no item.
 	 * @return
 	 * 		retorna o item atualizado.
+	 * @throws IllegalArgumentException 
 	 */
 	
 	public String atualizaItemNecessario(int id, String idReceptor, int quantidade, String tags) {
@@ -350,14 +366,40 @@ public class ControllerItem {
 		if(idReceptor == null || idReceptor.equals("")) 
 			throw new IllegalArgumentException("Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
 		
+		if(!buscarItemNecessario(id)) {
+			throw new IllegalArgumentException("Item nao encontrado: " + id + ".");
+		}
+		
 		Usuario usuario = userControl.buscarUsuarioId(idReceptor);
 		
 		if(usuario == null) 
 			throw new IllegalArgumentException("Usuario nao encontrado: " + idReceptor + ".");	
 		
-		return usuario.atualizaItem(id, quantidade, tags);
+		String saida = "";
+		for (int i = 0; i < itensNecessarios.size(); i++) {
+			Item item = itensNecessarios.get(i);
+			if(item.getIdItem() == id) {
+				if(quantidade > 0) {
+					itensNecessarios.get(i).setQuantidade(quantidade);
+				} 
+				if(!(tags == null || tags.equals(""))) {
+					itensNecessarios.get(i).setTags(tags);
+				}
+				saida += itensNecessarios.get(i).toString();
+			}
+		}
+		return saida;
 	}
 	
+	private boolean buscarItemNecessario(int id) {
+		for (int i = 0; i < itensNecessarios.size(); i++) {
+			if(itensNecessarios.get(i).getIdItem() == id) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * Metodo de remocao de itens que estao armazenados no sistema, acessa os usuarios e os itens que
 	 * estao associados a um usuario e o remove.
