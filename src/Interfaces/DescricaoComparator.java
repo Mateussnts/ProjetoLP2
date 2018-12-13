@@ -10,7 +10,7 @@ public class DescricaoComparator implements Comparator<String>{
 
 	/**
 	 * Metodo de ordenacao por String.
-	 * Split que separa o indice especifico da string que sera utilizada para a a ordenacao.
+	 * Split que separa o indice especifico da string que sera utilizada para a ordenacao.
 	 */
 	
 	@Override

@@ -15,7 +15,7 @@ public class Item implements Comparable<Item>{
 	/**
 	 * Metodo construtor do item que sera armazenado.
 	 * @param idDoador
-	 * 		numero de identificacao do usuario
+	 * 		numero de identificacao do usuario.
 	 * @param descricaoItem
 	 * 		descricao do item que sera criado.
 	 * @param quantidade
@@ -82,7 +82,7 @@ public class Item implements Comparable<Item>{
 	 * Metodo para retornar a representacao da quantidade e da descricao do item para o metdodo de listagem
 	 * de descricao.
 	 * @return
-	 * 		retorna a quantidade e adescricao do item.
+	 * 		retorna a quantidade e a descricao do item.
 	 */
 	
 	public String listaItens() {
@@ -99,7 +99,7 @@ public class Item implements Comparable<Item>{
 	}
 	
 	/**
-	 * Metodo responsavel por separa o array de tags dos itens.
+	 * Metodo responsavel por separar o array de tags dos itens.
 	 * @return
 	 * 		retorna a tag separada e concatenada ao sistema.
 	 */

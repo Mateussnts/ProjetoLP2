@@ -5,7 +5,7 @@ import java.io.IOException;
 /**
  * representacao do controller geral de operacoes do sistema, responsavel por ler a classe
  * de controle dos usuarios e dos itens e ser chamado pela fachada com as respectivas operaçoes
- * do sistema completo. criacao de controller estatico para que o controller de itens possa ter acesso a lista
+ * do sistema completo. Criacao de controller estatico para que o controller de itens possa ter acesso a lista
  * de usuario e assim aplicar a associacao de itens aos usuarios doadores.
  */
 

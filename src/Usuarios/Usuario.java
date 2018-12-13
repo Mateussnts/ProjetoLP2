@@ -31,7 +31,7 @@ public class Usuario {
 	 * @param classe
 	 * 		representacao em string da classe do usuario.
 	 * @param id
-	 * 		representacao em string da id do ususario.
+	 * 		representacao em string do id do ususario.
 	 * @param status 
 	 */
 	
@@ -148,9 +148,9 @@ public class Usuario {
 	 * @param quantidade
 	 * 		representacao da quantidade de itens que sera adicionado.
 	 * @param tags
-	 * 		representacao daa tag do item que sera adicionado.
+	 * 		representacao da tag do item que sera adicionado.
 	 * @return
-	 * 		retorna o numero de identificacao do item que foi gerado no seus respectivo cadastro.
+	 * 		retorna o numero de identificacao do item que foi gerado no seu respectivo cadastro.
 	 */
 	
 	public int adicionaItem(String descricaoItem, int quantidade, String tags) {
@@ -175,12 +175,12 @@ public class Usuario {
 	}
 	
 	/**
-	 * Metodo reponsavel pela exibicao do item que esta associado a um usuario doador.
+	 * Metodo responsavel pela exibicao do item que esta associado a um usuario doador.
 	 * buscar um usuario especifico e respectivamente seu item.
 	 * @param id
-	 * 		representacacod o numero de identificacao do item.
+	 * 		representacaco do numero de identificacao do item.
 	 * @return
-	 * 		retorna o item com sua devida representacao textal.
+	 * 		retorna o item com sua devida representacao textual.
 	 */
 	
 	public String exibirItem(int id) {
@@ -198,7 +198,7 @@ public class Usuario {
 	/**
 	 * Metodo de atualizacao de atributos do item que esta armazenado no sistema.
 	 * utiliza o metodo de procura de item pelo seu numero de identificacao
-	 * e recebe parametros que serao utilizado para atualizar os atributos do item.
+	 * e recebe parametros que serao utilizados para atualizar os atributos do item.
 	 * @param id
 	 * 		representacao do numero de identificacao do item que sera buscado.
 	 * @param quantidade
@@ -228,11 +228,11 @@ public class Usuario {
 	}
 	
 	/**
-	 * Metodo de remorcao de item que esta associado a um usuario
+	 * Metodo de remocao de item que esta associado a um usuario
 	 * buscar o item que esta armazenado no arraylist referente ao numero de identificacao passado
 	 * e o remove.
 	 * @param id
-	 * 		representacao do numero de identificacao do item que sera removido
+	 * 		representacao do numero de identificacao do item que sera removido.
 	 * @throws IllegalAccessException
 	 */
 	
@@ -269,9 +269,9 @@ public class Usuario {
 	
 	/**
 	 * "Metodo em Excecao". Utilizacao de polimorfismo para buscar um item cadastrado a um usuario
-	 * apartir da sua string de representacao referente a descricao do item.
+	 * a partir da sua string de representacao referente a descricao do item.
 	 * @param descricaoItem
-	 * 		representacao da descricao do item que sta armazenado.
+	 * 		representacao da descricao do item que esta armazenado.
 	 * @return
 	 * 		retorna o item associado a descricao passado como parametro.
 	 */

@@ -11,7 +11,7 @@ import Usuarios.Usuario;
 
 /**
  * Representacao da classe de controle das operacoes(CRUD) dos itens que serao cadastrados
- * e armazenado no sistema. criacao de atributo estatico para que os usarios possa fazer operacoes 
+ * e armazenado no sistema. Criacao de atributo estatico para que os usarios possam fazer operacoes 
  * ao numero de identicacao dos itens.
  */
 
@@ -31,7 +31,7 @@ public class ControllerItem {
 	/**
 	 * Metodo para a adicao de descricao aos itens que serao cadastrados;
 	 * @param descricao
-	 * 		descricao dos itens que sera doado.
+	 * 		descricao dos itens que serao doados.
 	 */
 	
 	public void adicionaDescritor(String descricao) {
@@ -49,7 +49,7 @@ public class ControllerItem {
 	/**
 	 * Metodo para adicionar descricao de itens que foram adicionados na criacao dos itens.
 	 * @param descricaoItem
-	 * 		descricao do item que sera a dicionado aos descritores do sistema.
+	 * 		descricao do item que sera adicionado aos descritores do sistema.
 	 */
 	
 	public static void adicionarDescricao(String descricaoItem) {
@@ -59,14 +59,14 @@ public class ControllerItem {
 	}
 	
 	/**
-	 * Metodo de adicao de itens para doacao tendo como parametros a descricao do itens seu numero de 
-	 * identificacao, quantidades e tags, acessa a classe usuario e armazena os itens a um usuario especifico.
+	 * Metodo de adicao de itens para doacao tendo como parametros a descricao do item, seu numero de 
+	 * identificacao, quantidade e tags, acessa a classe usuario e armazena os itens a um usuario especifico.
 	 * @param idDoador
 	 * 		numero de identificacao do doador.
 	 * @param descricaoItem
-	 * 		descricao do item que sera doado.
+	 * 		descricao do item que serao doados.
 	 * @param quantidade
-	 * 		quantidade dos itens que sera doado.
+	 * 		quantidade dos itens que serao doados.
 	 * @param tags
 	 * 		tags do item que sera doado.
 	 * @return
@@ -93,7 +93,7 @@ public class ControllerItem {
 	 * @param idDoador
 	 * 		representacao do numero de identificacao do usuario doador.
 	 * @return
-	 * 		retorna a representacao textual de um item especifico que esta relacibado a um usuario especifico.
+	 * 		retorna a representacao textual de um item especifico que esta relacionado a um usuario especifico.
 	 */
 	
 	public String exibeItem(int id, String idDoador) {
@@ -107,18 +107,18 @@ public class ControllerItem {
 	}
 
 	/**
-	 * Metodo de atualizacao das informacoes do item(quantidade e tag) acessa a classe usuario e busca o item
+	 * Metodo de atualizacao das informacoes do item(quantidade e tag), acessa a classe usuario e busca o item
 	 * associado ao numero de identificacao do item e do usuario passado.
 	 * @param id
-	 * 		represnetacao em inteiro do numero de identificacao do item.
+	 * 		representacao em inteiro do numero de identificacao do item.
 	 * @param idDoador
-	 * 		representacao em str do numero de identificacao do doador
+	 * 		representacao em str do numero de identificacao do doador.
 	 * @param quantidade
 	 * 		parametro que pode ser modificado no item.
 	 * @param tags
 	 * 		parametro que pode ser modificado no item.
 	 * @return
-	 * 		retorna o  item atualizado.
+	 * 		retorna o item atualizado.
 	 */
 	
 	public String atualizaItemParaDoacao(int id, String idDoador, int quantidade, String tags) {
@@ -137,12 +137,12 @@ public class ControllerItem {
 	}
 
 	/**
-	 * Metodo de remorcao de itens que estao armazenados no sistema, acessa os usuarios e os istens que
+	 * Metodo de remocao de itens que estao armazenados no sistema, acessa os usuarios e os istens que
 	 * estao associados a um usuario e o remove.
 	 * @param id
-	 * 		representacao do numero de identificacao do item que sera removido
+	 * 		representacao do numero de identificacao do item que sera removido.
 	 * @param idDoador
-	 * 		representacao do numero de identificaco do doador que tera seu item removido.
+	 * 		representacao do numero de identificacao do doador que tera seu item removido.
 	 * @throws IllegalAccessException
 	 */
 	
@@ -183,8 +183,8 @@ public class ControllerItem {
 	}
 
 	/**
-	 * Metodo para verificacao do descritores.
-	 * Verifica se existe algum item cadatsrado no sistema com a descricao dos descritores
+	 * Metodo para verificacao dos descritores.
+	 * Verifica se existe algum item cadatsrado no sistema com a descricao dos descritores.
 	 * @return
 	 * 		retorna a lista dos descritores com todos os itens que passarao pelo sistema.
 	 */
@@ -315,18 +315,18 @@ public class ControllerItem {
 	}
 	
 	/**
-	 * Metodo de atualizacao das informacoes do item(quantidade e tag) acessa a classe usuario e busca o item
+	 * Metodo de atualizacao das informacoes do item(quantidade e tag), acessa a classe usuario e busca o item
 	 * associado ao numero de identificacao do item e do usuario passado.
 	 * @param id
 	 * 		representacao em inteiro do numero de identificacao do item.
 	 * @param idReceptor
-	 * 		representacao em str do numero de identificacao do Receptor
+	 * 		representacao em str do numero de identificacao do Receptor.
 	 * @param quantidade
 	 * 		parametro que pode ser modificado no item.
 	 * @param tags
 	 * 		parametro que pode ser modificado no item.
 	 * @return
-	 * 		retorna o  item atualizado.
+	 * 		retorna o item atualizado.
 	 */
 	
 	public String atualizaItemNecessario(int id, String idReceptor, int quantidade, String tags) {
@@ -345,10 +345,10 @@ public class ControllerItem {
 	}
 	
 	/**
-	 * Metodo de remorcao de itens que estao armazenados no sistema, acessa os usuarios e os itens que
+	 * Metodo de remocao de itens que estao armazenados no sistema, acessa os usuarios e os itens que
 	 * estao associados a um usuario e o remove.
 	 * @param id
-	 * 		representacao do numero de identificacao do item que sera removido
+	 * 		representacao do numero de identificacao do item que sera removido.
 	 * @param idReceptor
 	 * 		representacao do numero de identificaco do receptor que tera seu item removido.
 	 * @throws IllegalAccessException
@@ -370,7 +370,7 @@ public class ControllerItem {
 	}
 
 	/**
-	 * metodo de matches entre items ....
+	 * metodo de matches entre itens ....
 	 * @param idReceptor
 	 * @param idItemNecessario
 	 * @return

@@ -7,7 +7,7 @@ import easyaccept.EasyAccept;
 
 /**
  * Representacao da fachada de operacoes do sistema, recebe metodos da classe de controle geral.
- * responsavel por ler os devidos controllers das classes que necessitam de opera�oes.
+ * responsavel por ler os devidos controllers das classes que necessitam de operacoes.
  */
 
 public class Facade {

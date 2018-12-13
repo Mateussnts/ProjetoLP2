@@ -24,7 +24,7 @@ public class ControllerUsuario {
 	 * Metodo de leitura dos arquivos(CSV) para cadastro de usuarios e atualizacao das 
 	 * informacoes dos usuarios.
 	 * @param caminho
-	 * 		caminho onde o arquivo esta armazenado
+	 * 		caminho onde o arquivo esta armazenado.
 	 * @throws IOException
 	 */
 	
@@ -62,9 +62,9 @@ public class ControllerUsuario {
 	 * @param celular
 	 * 		representacao em string do celular do usuario.
 	 * @param status
-	 * 		representacao em string da status do usuario.
+	 * 		representacao em string do status do usuario.
 	 * @param id
-	 * 		representacao em string da identificao do ususario.
+	 * 		representacao em string da identificacao do ususario.
 	 */
 	
 	public String adicionaDoador(String id, String nome, String email, String celular, String classe) {
@@ -83,7 +83,7 @@ public class ControllerUsuario {
 	 * @param id
 	 * 		representacao em string do numero de identificacao do usuario.
 	 * @return
-	 * 		retorna a represenatcao textual do usuario associado ao numero de identificacao.
+	 * 		retorna a representacao textual do usuario associado ao numero de identificacao.
 	 */
 	
 	public String pesquisaUsuarioPorId(String id) {
@@ -164,7 +164,7 @@ public class ControllerUsuario {
 	}
 
 	/**
-	 * Metodo de remorcao de usuarios do sistema a partir do seu numero de identificacao.
+	 * Metodo de remocao de usuarios do sistema a partir do seu numero de identificacao.
 	 * @param id
 	 * 		numero de identificacao do usuario que sera deletado.
 	 */
@@ -184,12 +184,12 @@ public class ControllerUsuario {
 	
 
 	/**
-	 * Metodo com finalidade de buscar usuarios especifico que estao cadastrados no sistema
+	 * Metodo com finalidade de buscar usuarios especificos que estao cadastrados no sistema
 	 * a partir de seu numero de identificacao.
 	 * @param id
 	 * 		recebe o numero de identificacao do usuario.
 	 * @return
-	 * 		retorno o usuario associado
+	 * 		retorno o usuario associado.
 	 */
 	
 	public Usuario buscarUsuarioId(String id) {
@@ -203,12 +203,12 @@ public class ControllerUsuario {
 	}
 	
 	/**
-	 * Metodo com finalidade de buscar usuarios especifico que estao cadastrados no sistema
+	 * Metodo com finalidade de buscar usuarios especificos que estao cadastrados no sistema
 	 * a partir de seu nome.
 	 * @param nome
 	 * 		recebe o nome do usuario como identificacao.
 	 * @return
-	 * 		retorno o usuario associado
+	 * 		retorno o usuario associado.
 	 */
 	
 	private Usuario buscarUsuarioNome(String nome) {
