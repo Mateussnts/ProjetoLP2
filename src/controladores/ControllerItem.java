@@ -21,7 +21,8 @@ public class ControllerItem {
 	private static ArrayList<String> descritores;
 	public static int idItem;
 	public static ArrayList<Item> itens;
-	public static ArrayList<Item> itensNecessarios;
+	public  ArrayList<Item> itensNecessarios;
+	Item item;
 	
 	public ControllerItem (ControllerUsuario controllerUsuario) {
 		descritores = new ArrayList<String>();
@@ -291,6 +292,11 @@ public class ControllerItem {
 		if(idReceptor == null || idReceptor.equals("")) 
 			throw new IllegalArgumentException("Entrada invalida: id do usuario nao pode ser vazio ou nulo.");
 		
+		item = new Item(idReceptor, descricaoItem.toLowerCase(), quantidade, tags,idItem);
+		itensNecessarios.add(item);
+		System.out.println(itensNecessarios);
+		ControllerItem.idItem++;
+		
 		Usuario receptor = userControl.buscarUsuarioId(idReceptor);
 		return receptor.adicionaItem(descricaoItem, quantidade, tags);
 	}
@@ -307,14 +313,20 @@ public class ControllerItem {
 	 */
 	
 	public String listaItensNecessarios() {
-		//Usuario usuario = userControl.buscarUsuarioId(idReceptor);
-		
-		//if(usuario == null) 
-		//	throw new IllegalArgumentException("Usuario nao encontrado: " + idReceptor + ".");
-		
-		//usuario.exibirItem(idItem);
-		return null;
-	}
+				
+				String todosOsItens = "";
+				String idUsuario;
+				
+				for(int i = 0; i < itensNecessarios.size(); i++) {
+					
+					idUsuario = itensNecessarios.get(i).getIdDoador();
+					Usuario receptor = userControl.buscarUsuarioId(idUsuario);
+					
+					todosOsItens += itensNecessarios.get(i).toString() + ", Receptor: " + receptor.getNome() + "/" + receptor.getid() + " | ";
+				}
+				
+				return todosOsItens.substring(0, todosOsItens.length()-3);
+			}
 	
 	/**
 	 * Metodo de atualizacao das informacoes do item(quantidade e tag), acessa a classe usuario e busca o item
@@ -343,7 +355,7 @@ public class ControllerItem {
 		if(usuario == null) 
 			throw new IllegalArgumentException("Usuario nao encontrado: " + idReceptor + ".");	
 		
-		return usuario.atualizaItem(id, quantidade, tags).toLowerCase();
+		return usuario.atualizaItem(id, quantidade, tags);
 	}
 	
 	/**

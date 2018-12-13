@@ -157,7 +157,7 @@ public class Usuario {
 		Item item = buscarItem(descricaoItem);
 		int idItem = ControllerItem.idItem;
 		if (item == null) {
-			item = new Item(this.id, descricaoItem, quantidade, tags,idItem);
+			item = new Item(this.id, descricaoItem.toLowerCase(), quantidade, tags,idItem);
 			itens.add(item);
 			ControllerItem.itens.add(item);
 			ControllerItem.idItem ++;
@@ -167,7 +167,7 @@ public class Usuario {
 			itens.remove(item);
 			ControllerItem.adicionarDescricao(descricaoItem);
 			ControllerItem.itens.remove(item);
-			item = new Item(this.id, descricaoItem, quantidade, tags,item.getIdItem());
+			item = new Item(this.id, descricaoItem.toLowerCase(), quantidade, tags,item.getIdItem());
 			itens.add(item);
 			ControllerItem.itens.add(item);
 			return idItem;
