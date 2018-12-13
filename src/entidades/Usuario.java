@@ -1,8 +1,8 @@
-package Usuarios;
+package entidades;
 
 import java.util.ArrayList;
-import Controladores.ControllerItem;
-import Item.Item;
+
+import controladores.ControllerItem;
 
 /**
  * representacao de criacao de um usuario especifico.

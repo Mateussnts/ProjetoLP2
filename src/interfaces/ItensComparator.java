@@ -1,8 +1,8 @@
-package Interfaces;
+package interfaces;
 
 import java.util.Comparator;
 
-import Item.Item;
+import entidades.Item;
 
 public class ItensComparator implements Comparator<Item>{
 

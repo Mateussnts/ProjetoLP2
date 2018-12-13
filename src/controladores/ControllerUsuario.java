@@ -1,11 +1,11 @@
-package Controladores;
+package controladores;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Usuarios.Usuario;
+import entidades.Usuario;
 
 /**
  * representacao do controle de operacoes(CRUD)
@@ -221,6 +221,12 @@ public class ControllerUsuario {
 		return usuario;
 	}
 
+	/**
+	 * Metodo acessador da lista de usuarios.
+	 * @return
+	 * 		retorna a lista de usuarios.
+	 */
+	
 	public ArrayList<Usuario> getListaUsuario() {
 		return listaUsuario;
 	}

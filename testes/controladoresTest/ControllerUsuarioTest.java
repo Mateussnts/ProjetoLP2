@@ -1,10 +1,10 @@
-package ControladoresTest;
+package controladoresTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class ControllerItemTest {
+class ControllerUsuarioTest {
 
 	@Test
 	void test() {

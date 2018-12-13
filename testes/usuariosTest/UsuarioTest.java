@@ -1,11 +1,11 @@
-package UsuariosTest;
+package usuariosTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import Item.Item;
-import Usuarios.Usuario;
+import entidades.Item;
+import entidades.Usuario;
 
 class UsuarioTest {
 	

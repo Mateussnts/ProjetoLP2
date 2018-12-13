@@ -1,4 +1,4 @@
-package Item;
+package entidades;
 
 /**
  * representacao do item que sera criado pelo sistema e associado a um usuario. 

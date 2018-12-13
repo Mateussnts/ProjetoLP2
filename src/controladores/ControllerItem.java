@@ -1,13 +1,13 @@
-package Controladores;
+package controladores;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import Interfaces.DescricaoComparator;
-import Interfaces.ItensComparator;
-import Item.Item;
-import Usuarios.Usuario;
+import entidades.Item;
+import entidades.Usuario;
+import interfaces.DescricaoComparator;
+import interfaces.ItensComparator;
 
 /**
  * Representacao da classe de controle das operacoes(CRUD) dos itens que serao cadastrados
@@ -21,11 +21,13 @@ public class ControllerItem {
 	private static ArrayList<String> descritores;
 	public static int idItem;
 	public static ArrayList<Item> itens;
+	public static ArrayList<Item> itensNecessarios;
 	
 	public ControllerItem (ControllerUsuario controllerUsuario) {
 		descritores = new ArrayList<String>();
 		this.userControl = controllerUsuario;
 		ControllerItem.itens = new ArrayList<Item>();
+		itensNecessarios = new ArrayList<>();
 	}
 	
 	/**

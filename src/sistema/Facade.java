@@ -2,7 +2,7 @@ package sistema;
 
 import java.io.IOException;
 
-import Controladores.ControllerSistema;
+import controladores.ControllerSistema;
 import easyaccept.EasyAccept;
 
 /**
