@@ -1,7 +1,11 @@
 package controladores;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,10 +18,10 @@ import entidades.Usuario;
 
 public class ControllerUsuario {
 
-	public ArrayList<Usuario> listaUsuario;
+	public static ArrayList<Usuario> listaUsuario;
 	
 	public ControllerUsuario () {
-		this.listaUsuario = new ArrayList<Usuario>();
+		ControllerUsuario.listaUsuario = new ArrayList<Usuario>();
 	}
 						
 	/**
@@ -229,5 +233,20 @@ public class ControllerUsuario {
 	
 	public ArrayList<Usuario> getListaUsuario() {
 		return listaUsuario;
+	}
+	
+	public void salvaUsuarios() throws IOException {
+		FileOutputStream fos1 = new FileOutputStream("arquivos_Salvos.txt" + File.separator + "listas_Salvas.txt");
+		ObjectOutputStream oos1 = new ObjectOutputStream(fos1);
+		oos1.writeObject(ControllerUsuario.listaUsuario);
+		oos1.close();
+	}
+
+	@SuppressWarnings("unchecked")
+	public void carregaUsuario() throws IOException, ClassNotFoundException {
+		FileInputStream fos1 = new FileInputStream("arquivos_Salvos.txt" + File.separator + "listas_Salvas.txt");
+		ObjectInputStream oos1 = new ObjectInputStream(fos1);
+		ControllerUsuario.listaUsuario = (ArrayList<Usuario>) oos1.readObject();
+		oos1.close();
 	}
 }

@@ -1,5 +1,6 @@
 package entidades;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import controladores.ControllerItem;
@@ -10,7 +11,10 @@ import controladores.ControllerItem;
  * 
  */
 
-public class Usuario {
+public class Usuario implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
 	private String nome;
 	private String email;
 	private String celular;
@@ -285,7 +289,6 @@ public class Usuario {
 		}
 		return item;
 	}
-	
 	
 	/**
 	 * Hashcode and equals.

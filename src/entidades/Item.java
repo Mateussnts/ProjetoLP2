@@ -1,16 +1,21 @@
 package entidades;
 
+import java.io.Serializable;
+
 /**
  * representacao do item que sera criado pelo sistema e associado a um usuario. 
  *
  */
 
-public class Item implements Comparable<Item>{
+public class Item implements Comparable<Item>, Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	private String idDoador;
 	private String descricaoItem;
 	private String tags;
     private int idItem;
 	public int quantidade;
+	private int pontos;
 	
 	/**
 	 * Metodo construtor do item que sera armazenado.
@@ -131,5 +136,13 @@ public class Item implements Comparable<Item>{
 
 	public void setIdItem(int idItem) {
 		this.idItem = idItem;
+	}
+
+	public int getPontos() {
+		return pontos;
+	}
+
+	public void setPontos(int pontos) {
+		this.pontos = pontos;
 	}
 }

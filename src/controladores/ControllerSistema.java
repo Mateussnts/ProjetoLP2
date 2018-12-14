@@ -1,6 +1,15 @@
 package controladores;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+
+import entidades.Item;
+import entidades.Usuario;
 
 /**
  * representacao do controller geral de operacoes do sistema, responsavel por ler a classe
@@ -93,5 +102,50 @@ public class ControllerSistema {
 	
 	public String match(String idReceptor, int idItemNecessario) {
 		return this.controllerItem.match(idReceptor, idItemNecessario);
+	}
+
+	public void fechaSistema(){
+		try {
+			File fileItens = new File("arquivos_sistema/itens.dat");
+	        @SuppressWarnings("resource")
+			ObjectOutputStream output1 = new ObjectOutputStream(new FileOutputStream(fileItens));
+	        output1.writeObject(ControllerItem.itens);
+	        
+			File fileItensNecessarios = new File("arquivos_sistema/itens_necessarios.dat");
+	        @SuppressWarnings("resource")
+			ObjectOutputStream output2 = new ObjectOutputStream(new FileOutputStream(fileItensNecessarios));
+	        output2.writeObject(ControllerItem.itensNecessarios);
+	        
+			File fileUsuarios = new File("arquivos_sistema/usuarios.dat");
+	        @SuppressWarnings("resource")
+			ObjectOutputStream output3 = new ObjectOutputStream(new FileOutputStream(fileUsuarios));
+	        output3.writeObject(ControllerUsuario.listaUsuario);
+	    }
+	    catch(Exception e){
+	    	System.out.println(e.toString());
+	    }
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void iniciaSistema(){
+		try {
+			File fileItens = new File("arquivos_sistema/itens.dat");
+            @SuppressWarnings("resource")
+			ObjectInputStream input1 = new ObjectInputStream(new FileInputStream(fileItens));
+            ControllerItem.itens = ((ArrayList<Item>) input1.readObject());
+            
+			File fileItensNecessarios = new File("arquivos_sistema/itens_necessarios.dat");
+            @SuppressWarnings("resource")
+			ObjectInputStream input2 = new ObjectInputStream(new FileInputStream(fileItensNecessarios));
+            ControllerItem.itensNecessarios = ((ArrayList<Item>) input2.readObject());
+            
+			File fileUsuarios = new File("arquivos_sistema/usuarios.dat");
+            @SuppressWarnings("resource")
+			ObjectInputStream input3 = new ObjectInputStream(new FileInputStream(fileUsuarios));
+            ControllerUsuario.listaUsuario = ((ArrayList<Usuario>) input3.readObject());
+		}
+		catch(Exception e){
+            System.out.println(e.toString());
+        }
 	}
 }

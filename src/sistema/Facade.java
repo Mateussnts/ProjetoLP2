@@ -17,7 +17,7 @@ public class Facade {
 	public static void main(String[] args) {
 		args = new String[] {"sistema.Facade", "EasyAccept/use_case_1.txt", "EasyAccept/use_case_2.txt",
 											   "EasyAccept/use_case_3.txt", "EasyAccept/use_case_4.txt",
-											   "EasyAccept/use_case_5.txt"};
+											   "EasyAccept/use_case_5.txt", "EasyAccept/use_case_7.txt"};
 		EasyAccept.main(args);
 	}
 	
@@ -99,5 +99,13 @@ public class Facade {
 
 	public String match(String idReceptor, int idItemNecessario) {
 		return this.controller.match(idReceptor, idItemNecessario);
+	}
+
+	public void finalizaSistema() throws IOException {
+		this.controller.fechaSistema();
+	}
+	
+	public void iniciaSistema() throws ClassNotFoundException, IOException {
+		this.controller.iniciaSistema();
 	}
 }

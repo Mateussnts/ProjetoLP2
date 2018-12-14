@@ -8,6 +8,7 @@ import entidades.Item;
 import entidades.Usuario;
 import interfaces.DescricaoComparator;
 import interfaces.ItensComparator;
+import interfaces.PontosComparator;
 
 /**
  * Representacao da classe de controle das operacoes(CRUD) dos itens que serao cadastrados
@@ -21,8 +22,7 @@ public class ControllerItem {
 	private static ArrayList<String> descritores;
 	public static int idItem;
 	public static ArrayList<Item> itens;
-	public  ArrayList<Item> itensNecessarios;
-	Item item;
+	public static  ArrayList<Item> itensNecessarios;
 	
 	public ControllerItem (ControllerUsuario controllerUsuario) {
 		descritores = new ArrayList<String>();
@@ -182,7 +182,6 @@ public class ControllerItem {
 		for (int i = 0; i < listaDescritores.size()-1; i++) {
 			saida += listaDescritores.get(i) + " | ";
 		}
-		
 		saida += listaDescritores.get(listaDescritores.size()-1);
 		
 		return saida;
@@ -221,7 +220,7 @@ public class ControllerItem {
 	 */
 	
 	public String listaItensParaDoacao() {
-		List<Usuario> usuarios = userControl.listaUsuario;
+		List<Usuario> usuarios = ControllerUsuario.listaUsuario;
 		List<Item> itensDoados = new ArrayList<>();
 		
 		for (int i = 0; i < itens.size(); i++) {
@@ -285,7 +284,6 @@ public class ControllerItem {
 	 */
 	
 	public int adicionaItemNecessario(String idReceptor, String descricaoItem, int quantidade, String tags) {
-		
 		if(descricaoItem == null || descricaoItem.equals("")) 
 			throw new IllegalArgumentException("Entrada invalida: descricao nao pode ser vazia ou nula.");
 		
@@ -328,7 +326,6 @@ public class ControllerItem {
 	 */
 	
 	public String listaItensNecessarios() {
-				
 		String todosOsItens = "";
 		String idUsuario;
 				
@@ -339,7 +336,6 @@ public class ControllerItem {
 					
 			todosOsItens += itensNecessarios.get(i).toString() + ", Receptor: " + receptor.getNome() + "/" + receptor.getid() + " | ";
 		}
-				
 		return todosOsItens.substring(0, todosOsItens.length()-3);
 	}
 	
@@ -391,6 +387,14 @@ public class ControllerItem {
 		return saida;
 	}
 	
+	/**
+	 * Metodo de busca de itens necessarios cadastrados no sistema.
+	 * @param id
+	 * 		id do item necessarios que sera buscado.
+	 * @return
+	 * 	retorna true caso o item seja encontrado.
+	 */
+	
 	private boolean buscarItemNecessario(int id) {
 		for (int i = 0; i < itensNecessarios.size(); i++) {
 			if(itensNecessarios.get(i).getIdItem() == id) {
@@ -426,10 +430,13 @@ public class ControllerItem {
 	}
 
 	/**
-	 * metodo de matches entre itens ....
+	 * metodo de matches entre itens do sistema
 	 * @param idReceptor
+	 * 		numero de identificacap do usuario receptor
 	 * @param idItemNecessario
+	 * 		numero de identificacao do item necessario
 	 * @return
+	 * 	retorna uma representaçao textual dos itens que sofreram matches.
 	 */
 	
 	public String match(String idReceptor, int idItemNecessario) {
@@ -447,8 +454,76 @@ public class ControllerItem {
 		if(!usuario.getStatus().equals("receptor"))
 			throw new IllegalArgumentException("O Usuario deve ser um receptor: " + idReceptor + ".");
 		
+		Item item = searchItemNecessario(idItemNecessario);
+		String saida = "";
+		ArrayList<Item> itensQueCombinam = new ArrayList<>();
+		for (int j = 0; j < itens.size(); j++) {
+			if(itens.get(j).getDescricaoItem().equals(item.getDescricaoItem())) {
+				Item copiItem = itens.get(j);
+				item.setPontos(20);
+				int pontos = verificaTags(item.getTags(),copiItem.getTags());
+				item.setPontos(item.getPontos() + pontos);
+				itensQueCombinam.add(copiItem);
+			}
+		}
+		
+		PontosComparator pc = new PontosComparator();
+		Collections.sort(itensQueCombinam,pc);
+		
+		for (int i = 0; i < itensQueCombinam.size(); i++) {
+			String nome = userControl.buscarUsuarioId(itensQueCombinam.get(i).getIdDoador()).getNome();			
+			saida += itensQueCombinam.get(i).toString() + ", doador: " + nome + "/" + itensQueCombinam.get(i).getIdDoador() + " | ";
+		}
+		saida = saida.substring(0, saida.length()-3);
+		return saida;
+	}
+
+	/**
+	 * Metodo para verificacao das tags que serao comparadas no metodo de matches.
+	 * @param tagsReceptor
+	 * 		tag do item do receptor
+	 * @param tagsDoador
+	 * 		tag do item do doador
+	 * @return
+	 * 		retorna a quantidade de pontos caso as tags tenham alguma semelhança de igualdade ou posicao.
+	 */
+	
+	private int verificaTags(String tagsReceptor, String tagsDoador) {
+		int pontos = 0;
+		String[] listTagsReceptor = tagsReceptor.split(",");
+		String[] listTagsDoador = tagsDoador.split(",");
+			
+		int size = Math.min(listTagsReceptor.length,listTagsDoador.length);
+				
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				if(listTagsReceptor[i].equals(listTagsDoador[j])){
+					pontos += 5;
+					if(i == j) {
+						pontos += 5;
+					}
+				}
+			}
+		}
+		
+		return pontos;
+	}
+
+	/**
+	 * Metodo de procura de itens necessarios no sistema
+	 * @param idItemNecessario
+	 * 		Numero de identificacao do item necessario
+	 * @return
+	 * 		retorna o item procurado.
+	 */
+	
+	private Item searchItemNecessario(int idItemNecessario) {
+		for (int i = 0; i < itensNecessarios.size(); i++) {
+			if(itensNecessarios.get(i).getIdItem() == idItemNecessario) {
+				return itensNecessarios.get(i);
+			}
+		}
 		return null;
 	}
-	
 }
 
