@@ -145,4 +145,51 @@ public class Item implements Comparable<Item>, Serializable{
 	public void setPontos(int pontos) {
 		this.pontos = pontos;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((descricaoItem == null) ? 0 : descricaoItem.hashCode());
+		result = prime * result + ((idDoador == null) ? 0 : idDoador.hashCode());
+		result = prime * result + idItem;
+		result = prime * result + pontos;
+		result = prime * result + quantidade;
+		result = prime * result + ((tags == null) ? 0 : tags.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Item other = (Item) obj;
+		if (descricaoItem == null) {
+			if (other.descricaoItem != null)
+				return false;
+		} else if (!descricaoItem.equals(other.descricaoItem))
+			return false;
+		if (idDoador == null) {
+			if (other.idDoador != null)
+				return false;
+		} else if (!idDoador.equals(other.idDoador))
+			return false;
+		if (idItem != other.idItem)
+			return false;
+		if (pontos != other.pontos)
+			return false;
+		if (quantidade != other.quantidade)
+			return false;
+		if (tags == null) {
+			if (other.tags != null)
+				return false;
+		} else if (!tags.equals(other.tags))
+			return false;
+		return true;
+	}
+	
 }
